@@ -4,16 +4,79 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Olympic DataViz</title>
-    
+    <!-- Load d3.js -->
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<style>
+    body {
+        height: 100vh;
+    }
+
+    section {
+        border: red solid;
+    }
+
+    #section1 {
+        border: blue solid;
+width: 900px;
+    }
+
+    #year {
+        width: 70%;
+    }
+</style>
 </head>
+
+<header>
+    <h1>Olimpic viz</h1>
+    <h2>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto .</h2>
+</header>
+
 <body>
 
-<!-- Load d3.js -->
-<script src="https://d3js.org/d3.v7.min.js"></script>
+<section>counter how much medals were gained during the story of olympic games</section>
 
-<div id="streamgraph-container"></div>
 
-        <script src="script.js"></script>
+
+
+
+
+    <section id="section1">
+<h1>Section 1. Changing medals in history</h1>
+<!-- 
+<svg width="80vw" height="70vh" id="data-1" viewbox="-10 -10 470 220">
+
+    <rect  width="450" height="200" x="0" y="-100" style="fill:rgb(199, 195, 195)"/>
+
+
+    
+     
+    <line x1="0" y1="100" x2="0" y2="-100"  stroke="black" marker-end="url(#arrow)" />
+
+</svg>-->
+
+<input type="range" id="year" value="1890" step="1">
+<div id="results"></div> 
+
+    </section>
+
+
+
+
+
+    <section>
+        <h1>Section 2. steamgraph with medals</h1>
+        <svg id="steamgraph" width="700px" height="600px" viewBox="-40 -40 840 400" ></svg>
+        <input type="range" min="2000" max="2019" step="1" id="year-slider">
+        
+        
+    </section>
+
+
+
+
+
+    
+    <script src="script.js"></script>
 </body>
 
 <!-- d3.sort(data, (d) => d.value)

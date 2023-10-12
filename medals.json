@@ -1,0 +1,14 @@
+[
+    {"year": 2000, "gold": 10, "silver": 12, "bronze": 14},
+    {"year": 2004, "gold": 15, "silver": 9, "bronze": 11},
+    {"year": 2006, "gold": 7, "silver": 16, "bronze": 13},
+    {"year": 2008, "gold": 12, "silver": 14, "bronze": 8},
+    {"year": 2012, "gold": 12, "silver": 32, "bronze": 44},
+    {"year": 2013, "gold": 12, "silver": 14, "bronze": 8},
+    {"year": 2014, "gold": 12, "silver": 14, "bronze": 8},
+    {"year": 2016, "gold": 132, "silver": 44, "bronze": 8},
+    {"year": 2017, "gold": 1, "silver": 14, "bronze": 32},
+    {"year": 2019, "gold": 12, "silver": 14, "bronze": 8}
+
+  ]
+  
