@@ -69,7 +69,6 @@ function aaa (data) {
   var years = data
     .map(d => d.year) // Фильтруем только уникальные значения из столбца 'year'
     .filter((value, index, self) => self.indexOf(value) === index)
-  console.log(years)
 
   // Минимум и максимум только из отфильтрованных данных
   var minYear = d3.min(years)
@@ -80,7 +79,10 @@ function aaa (data) {
   years.sort((a, b) => a - b)
   console.log(years)
 
-  var step = years[1] - years[0]
+ 
+    var step = 4;
+  
+  
   console.log(step)
 
   d3.select('#year')
@@ -103,6 +105,19 @@ d3.csv('main_data.csv').then(function (data) {
     selectedYear = this.value //take input
     console.log('Selected Year:', selectedYear) //check input
 
+    if (selectedYear <= 1992){
+      var step = 4;
+    }
+    if (selectedYear > 1992){
+      var step = 2;
+    }
+    
+    console.log(step)
+  
+    d3.select('#year')
+      .attr('step', step)
+
+
     var dataToBind = Object.entries(medalCountByYear)
     // Сортировка данных
     var sortedData = Object.entries(medalCountByYear)
@@ -114,17 +129,27 @@ d3.csv('main_data.csv').then(function (data) {
       .slice(0, 10)
 
     // showing bars with d3
+    d3.select('#selected-year')
+    .text(selectedYear)
+    
+let maxMedals = 0;
+
+for (let team in medalCountByYear) 
+{ for (let year in medalCountByYear[team]) { const medals = medalCountByYear[team][year].medals;
+   if (medals > maxMedals) { maxMedals = medals; } }}
+
+const maxValue = maxMedals;
+console.log(maxValue)// max medals in history by one country
+    
+
 
     if (selectedYear == 1916 || selectedYear == 1940 || selectedYear == 1944) {
       d3.select('#section1').selectAll('.barre').remove()
       d3.select('#div-section1')
       .style("display", 'block')
     } else {
-      const maxValue = Math.max(...sortedData.map(item => item[1][selectedYear].medals))
-
-      console.log(maxValue)
-
-      // const maxValue = sortedData
+      
+      
       d3.select('#div-section1')
       .style("display", 'none')
       d3.select('#section1')
@@ -141,9 +166,13 @@ d3.csv('main_data.csv').then(function (data) {
         .style('height', '20px')
         .style('margin', '7px 0px')
         .text(d => d[0])
+        // .text(d => d[1][selectedYear].medals)
+        
     }
   })
 })
+
+
 
 //   // Функция для отображения топ-10 стран по количеству медалей на выбранный год
 //   function displayTop10Countries(selectedYear) {
