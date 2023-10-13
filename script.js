@@ -30,120 +30,120 @@
 //     console.log(medalCount);
 //   })
 
-
-  //dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-
- 
- 
- 
- 
- 
-  
+//dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 
 //dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 
-
-
- 
-
-var medalCountByYear = {};
- 
+var medalCountByYear = {}
 
 //function who counts medals of every country every year
-function aaa(data) {
-  data.forEach(function(row) {
-    var year = row.year;
-    var team = row.team;
-    var medal = row.Medal; //create fast var
+function aaa (data) {
+  data.forEach(function (row) {
+    var year = row.year
+    var team = row.team
+    var medal = row.Medal //create fast var
 
-    if (medal === "GOLD" || medal === "SILVER" || medal === "BRONZE") {
-      if (!medalCountByYear[team]) {//if any medal exists we creat team if it wasnt created before
-        medalCountByYear[team] = {};
+    if (medal === 'GOLD' || medal === 'SILVER' || medal === 'BRONZE') {
+      if (!medalCountByYear[team]) {
+        //if any medal exists we creat team if it wasnt created before
+        medalCountByYear[team] = {}
       }
 
       if (!medalCountByYear[team][year]) {
-        medalCountByYear[team][year] = {//we create year if it wasnt created before
+        medalCountByYear[team][year] = {
+          //we create year if it wasnt created before
           medals: 0
-        };
+        }
       }
 
-      medalCountByYear[team][year].medals++; // we add medals by every line who correspond the team and the year
+      medalCountByYear[team][year].medals++ // we add medals by every line who correspond the team and the year
 
       //table is ready to use for all code
     }
-  });
+  })
 
-
-  ///function to change new table who will collect medals by years, totals. 
+  ///function to change new table who will collect medals by years, totals.
 
   ///input/////////////////////
 
-  var years = data.map(d => d.year)//we create input who will takes only years from data
-  .filter((value, index, self) => self.indexOf(value) === index);
+  var years = data
+    .map(d => d.year) // Фильтруем только уникальные значения из столбца 'year'
+    .filter((value, index, self) => self.indexOf(value) === index)
+  console.log(years)
 
-//min max
-var minYear = d3.min(years); 
-var maxYear = d3.max(years);
-years.sort((a, b) => a - b);
+  // Минимум и максимум только из отфильтрованных данных
+  var minYear = d3.min(years)
+  console.log(minYear)
+  var maxYear = d3.max(years)
+  console.log(maxYear)
 
-// step by every case from the table 
-var step = years[1] - years[0]; 
+  years.sort((a, b) => a - b)
+  console.log(years)
 
-d3.select("#year")
-.attr("min", minYear)
-.attr("max", maxYear) 
-.attr("step", step);
+  var step = years[1] - years[0]
+  console.log(step)
+
+  d3.select('#year')
+    .attr('min', minYear)
+    .attr('max', maxYear)
+    .attr('step', step)
 }
 
+// Новая таблица для хранения данных
 
-
- // Новая таблица для хранения данных 
-
-
-
-
-
-
-d3.csv("main_data.csv").then(function(data) {
-  aaa(data);
-  console.log(medalCountByYear); // check that table is working
+d3.csv('main_data.csv').then(function (data) {
+  aaa(data)
+  console.log(medalCountByYear) // check that table is working
   // check that table is working
-  var selectedYear = 1890;
+  var selectedYear = 1890
 
-  var rangeInput = d3.select("#year");
+  var rangeInput = d3.select('#year')
 
-  rangeInput.on("input", function() {
-    selectedYear = this.value; //take input
-    console.log("Selected Year:", selectedYear); //check input
+  rangeInput.on('input', function () {
+    selectedYear = this.value //take input
+    console.log('Selected Year:', selectedYear) //check input
 
+    var dataToBind = Object.entries(medalCountByYear)
+    // Сортировка данных
+    var sortedData = Object.entries(medalCountByYear)
+      .sort((a, b) => {
+        const aMedals = a[1][selectedYear]?.medals ?? 0
+        const bMedals = b[1][selectedYear]?.medals ?? 0
+        return bMedals - aMedals
+      })
+      .slice(0, 10)
 
- 
+    // showing bars with d3
 
-    var dataToBind = Object.entries(medalCountByYear);
+    if (selectedYear == 1916 || selectedYear == 1940 || selectedYear == 1944) {
+      d3.select('#section1').selectAll('.barre').remove()
+      d3.select('#div-section1')
+      .style("display", 'block')
+    } else {
+      const maxValue = Math.max(...sortedData.map(item => item[1][selectedYear].medals))
 
-    d3.select("#section1")
-    .selectAll(".barre")
-    .data(dataToBind)
-    .join("div")
-    .attr("class", "barre")
-    .style("width", d => d[1][selectedYear] ? `${d[1][selectedYear].medals}%` : "0px")
-    .style("background-color", "black")
-    .style("height", "10px")
-    .style("margin", "7px 0px");
-  
- 
-    
-});
+      console.log(maxValue)
 
- 
-    
-  });
-
-
- 
-
-
-
+      // const maxValue = sortedData
+      d3.select('#div-section1')
+      .style("display", 'none')
+      d3.select('#section1')
+        .selectAll('.barre')
+        .data(sortedData)
+        .join('div')
+        .attr('class', 'barre')
+        .transition()
+        .style('width', d => {
+          const medals = d[1][selectedYear]?.medals ?? 0
+          return medals / maxValue * 100 + '%'
+        })
+        .style('background-color', 'red')
+        .style('height', '20px')
+        .style('margin', '7px 0px')
+        .text(d => d[0])
+    }
+  })
+})
 
 //   // Функция для отображения топ-10 стран по количеству медалей на выбранный год
 //   function displayTop10Countries(selectedYear) {
@@ -176,31 +176,8 @@ d3.csv("main_data.csv").then(function(data) {
 //   displayTop10Countries(2001);
 
 //   // Добавьте обработчик событий для элемента ввода range, чтобы обновлять результаты при выборе года
- 
+
 // });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // d3.json("medals.json").then(function(data) {
 //   // Preprocess the data
@@ -215,7 +192,7 @@ d3.csv("main_data.csv").then(function(data) {
 //   var xScale = d3.scaleLinear()
 //     .domain([d3.min(data, function(d) { return d.year; }), d3.max(data, function(d) { return d.year; })])
 //     .range([0, 800]);
-  
+
 //   var yScale = d3.scaleLinear()
 //     .domain([0, d3.max(layers, function(layer) { return d3.max(layer, function(d) { return d[1]; }); })])
 //     .range([400, 0]);
@@ -240,7 +217,7 @@ d3.csv("main_data.csv").then(function(data) {
 //     .append("path")
 //     .attr("d", area)
 //     .style("fill", function(d) { return colorScale(d.key); });
-  
+
 //   // Draw x-axis
 //   steamgraph.append("line")
 //     .attr("x1", 0)
@@ -248,7 +225,7 @@ d3.csv("main_data.csv").then(function(data) {
 //     .attr("x2", 800)
 //     .attr("y2", 400)
 //     .style("stroke", "black");
-  
+
 //   // Add x-axis labels
 //   data.forEach(function(d) {
 //     steamgraph.append("text")
@@ -257,8 +234,6 @@ d3.csv("main_data.csv").then(function(data) {
 //       .text(d.year);
 //   });
 
-  
-  
 //   // Draw y-axis
 //   steamgraph.append("line")
 //     .attr("x1", 0)
@@ -266,7 +241,7 @@ d3.csv("main_data.csv").then(function(data) {
 //     .attr("x2", 0)
 //     .attr("y2", 400)
 //     .style("stroke", "black");
-  
+
 //   // Add y-axis labels
 //   var yAxisLabels = yScale.ticks();
 //   yAxisLabels.forEach(function(d) {
