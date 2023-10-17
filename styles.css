@@ -1,0 +1,89 @@
+/* responsive jusqu'a 1024 */
+
+*,
+*::after,
+*::before {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+@font-face {
+    font-family: 'Paris2024';
+    src: url('typo/Paris2024-Variable.ttf') format('truetype');
+    src: url('typo/Paris2024-Variable.ttf') format('woff');
+    src: url('typo/Paris2024-Variable.ttf') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Source Sans';
+    src: url('typo/source-sans-pro.light.ttf') format('truetype');
+    src: url('typo/source-sans-pro.light.ttf') format('woff');
+    src: url('typo/source-sans-pro.light.ttf') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body{
+    background-color: #F1F1F1;
+    font-size: 1.25rem;
+    color: black;
+    font-family: "Source Sans";
+}
+
+.bloc_accueil{
+    background-image: url(./img/accueil_1400.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 110vh;
+    border-radius: 0% 0% 25% 0%;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.logo{
+    margin: auto;
+    width: 225px;
+}
+
+
+.dataviz{
+    font-family: "Paris2024";
+    font-size: 9rem;
+    color: #FFFFFF;
+    text-align: right;
+    padding-right: 15px;
+}
+
+
+
+.bloc_fact{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    width: 80%;
+    height: 35vh;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+}
+
+/* TITRE DE L'ACCUEIL */
+@media (max-width: 1274px){
+    .dataviz{
+        font-size: 8.5rem;
+    }
+}
+
+@media (max-width: 1189px){
+    .dataviz{
+        font-size: 8rem;
+    }
+}
+
+@media (max-width: 1107px){
+    .dataviz{
+        font-size: 7.5rem;
+    }
+}
