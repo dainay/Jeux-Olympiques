@@ -23,6 +23,19 @@ width: 900px;
     #year {
         width: 70%;
     }
+
+  #section3 {
+}
+
+    /* Styling for red tick marks */
+ 
+    #section3 .tick:nth-of-type(4n-1) {
+    color: red;
+}
+
+#section3 .tick:nth-of-type(4n-3) {
+    color: blue;
+}
 </style>
 </head>
 
@@ -57,25 +70,35 @@ width: 900px;
     <section>
         <h1>Section 2. steamgraph with medals</h1>
 
-
-
-        <svg id="steamgraph" width="700px" height="600px" viewBox="-40 -40 840 400" ></svg>
-
-        
-        <input type="range" min="2000" max="2019" step="1" id="year-slider">
-        
+       
         
     </section>
 
 
 
+<section>
+<h1>section 3</h1>
+ 
 
+<select name="selectedTeam" id="selectedTeam"></select>
+<!-- to choose the country -->
+
+<div id="section3"></div>
+<!-- put the svg here -->
+<div id="host"> 
+    <!-- info about seleced country -->
+</div>
+
+<p>You should not forget that Summer olimpic games propose in general 300 medals sets, and winters only 100.so correlatin in 3 to 1 between summer and winter gained medals is normal and means that this country tries to sevelopes all kind of sports. If this attitude is higher or lower we can tell that the country is stronger in summer or winter games, what can be connected with climat and culture politics </p>
+</section>
 
     
+
+
+
     <script src="script.js"></script>
 </body>
 
-<!-- d3.sort(data, (d) => d.value)
-persos.splice(position, 1);//retire un élément par son index -->
+
 </html>
 

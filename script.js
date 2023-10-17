@@ -1,304 +1,384 @@
-// d3.csv("main_data.csv") //count all medals for all the time
-//   .then(function(data) {
-//     var medalCount = {};
-
-//     data.forEach(function(row) {
-//       var year = row.year;
-//       var team = row.team;
-//       var medal = row.Medal;
-
-//       if (medal === "GOLD" || medal === "SILVER" || medal === "BRONZE") {
-//         if (!medalCount[team]) {
-//           medalCount[team] = {
-//             Gold: 0,
-//             Silver: 0,
-//             Bronze: 0
-//           };
-//         }
-
-//         if (medal === "GOLD") {
-//           medalCount[team].Gold++;
-//         } else if (medal === "SILVER") {
-//           medalCount[team].Silver++;
-//         } else if (medal === "BRONZE") {
-//           medalCount[team].Bronze++;
-//         }
-//       }
-//     });
-
-//     // Вывод обновленной таблицы объектов в консоль
-//     console.log(medalCount);
-//   })
-
 //dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 
-//dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-
-var medalCountByYear = {}
+var medalCountByYear = {};
 
 //function who counts medals of every country every year
-function aaa (data) {
+function aaa(data) {
   data.forEach(function (row) {
-    var year = row.year
-    var team = row.team
-    var medal = row.Medal //create fast var
+    var year = row.year;
+    var team = row.team;
+    var medal = row.Medal; //create fast var
 
-    if (medal === 'GOLD' || medal === 'SILVER' || medal === 'BRONZE') {
+    if (medal === "GOLD" || medal === "SILVER" || medal === "BRONZE") {
       if (!medalCountByYear[team]) {
         //if any medal exists we creat team if it wasnt created before
-        medalCountByYear[team] = {}
+        medalCountByYear[team] = {};
       }
 
       if (!medalCountByYear[team][year]) {
         medalCountByYear[team][year] = {
           //we create year if it wasnt created before
-          medals: 0
-        }
+          medals: 0,
+        };
       }
 
-      medalCountByYear[team][year].medals++ // we add medals by every line who correspond the team and the year
+      medalCountByYear[team][year].medals++; // we add medals by every line who correspond the team and the year
 
       //table is ready to use for all code
     }
-  })
-
-  ///function to change new table who will collect medals by years, totals.
+  });
 
   ///input/////////////////////
 
   var years = data
-    .map(d => d.year) // Фильтруем только уникальные значения из столбца 'year'
-    .filter((value, index, self) => self.indexOf(value) === index)
+    .map((d) => d.year) // Фильтруем только уникальные значения из столбца 'year'
+    .filter((value, index, self) => self.indexOf(value) === index);
 
   // Минимум и максимум только из отфильтрованных данных
-  var minYear = d3.min(years)
-  console.log(minYear)
-  var maxYear = d3.max(years)
-  console.log(maxYear)
+  var minYear = d3.min(years);
+  console.log(minYear);
+  var maxYear = d3.max(years);
+  console.log(maxYear);
 
-  years.sort((a, b) => a - b)
-  console.log(years)
+  years.sort((a, b) => a - b);
+  console.log(years);
 
- 
-    var step = 4;
-  
-  
-  console.log(step)
+  var step = 4;
 
-  d3.select('#year')
-    .attr('min', minYear)
-    .attr('max', maxYear)
-    .attr('step', step)
+  console.log(step);
+
+  d3.select("#year")
+    .attr("min", minYear)
+    .attr("max", maxYear)
+    .attr("step", step);
 }
 
 // Новая таблица для хранения данных
 
-d3.csv('main_data.csv').then(function (data) {
-  aaa(data)
-  console.log(medalCountByYear) // check that table is working
+d3.csv("main_data.csv").then(function (data) {
+  aaa(data);
+  console.log(medalCountByYear); // check that table is working
   // check that table is working
-  var selectedYear = 1890
+  var selectedYear = 1890;
 
-  var rangeInput = d3.select('#year')
+  var rangeInput = d3.select("#year");
 
-  rangeInput.on('input', function () {
-    selectedYear = this.value //take input
-    console.log('Selected Year:', selectedYear) //check input
+  rangeInput.on("input", function () {
+    selectedYear = this.value; //take input
+    console.log("Selected Year:", selectedYear); //check input
 
-    if (selectedYear <= 1992){
+    if (selectedYear <= 1994) {
       var step = 4;
     }
-    if (selectedYear > 1992){
+    if (selectedYear > 1994) {
       var step = 2;
     }
-    
-    console.log(step)
-  
-    d3.select('#year')
-      .attr('step', step)
 
+    console.log(step);
 
-    var dataToBind = Object.entries(medalCountByYear)
+    d3.select("#year").attr("step", step);
+
+    var dataToBind = Object.entries(medalCountByYear);
     // Сортировка данных
     var sortedData = Object.entries(medalCountByYear)
       .sort((a, b) => {
-        const aMedals = a[1][selectedYear]?.medals ?? 0
-        const bMedals = b[1][selectedYear]?.medals ?? 0
-        return bMedals - aMedals
+        const aMedals = a[1][selectedYear]?.medals ?? 0;
+        const bMedals = b[1][selectedYear]?.medals ?? 0;
+        return bMedals - aMedals;
       })
-      .slice(0, 10)
+      .slice(0, 10);
 
     // showing bars with d3
-    d3.select('#selected-year')
-    .text(selectedYear)
-    
-let maxMedals = 0;
+    d3.select("#selected-year").text(selectedYear);
 
-for (let team in medalCountByYear) 
-{ for (let year in medalCountByYear[team]) { const medals = medalCountByYear[team][year].medals;
-   if (medals > maxMedals) { maxMedals = medals; } }}
+    let maxMedals = 0;
 
-const maxValue = maxMedals;
-console.log(maxValue)// max medals in history by one country
-    
+    for (let team in medalCountByYear) {
+      for (let year in medalCountByYear[team]) {
+        const medals = medalCountByYear[team][year].medals;
+        if (medals > maxMedals) {
+          maxMedals = medals;
+        }
+      }
+    }
 
+    const maxValue = maxMedals;
+    console.log(maxValue); // max medals in history by one country
 
     if (selectedYear == 1916 || selectedYear == 1940 || selectedYear == 1944) {
-      d3.select('#section1').selectAll('.barre').remove()
-      d3.select('#div-section1')
-      .style("display", 'block')
+      d3.select("#section1").selectAll(".barre").transition().remove();
+      d3.select("#div-section1").transition().style("display", "block");
     } else {
-      
-      
-      d3.select('#div-section1')
-      .style("display", 'none')
-      d3.select('#section1')
-        .selectAll('.barre')
+      d3.select("#div-section1").style("display", "none");
+      d3.select("#section1")
+        .selectAll(".barre")
         .data(sortedData)
-        .join('div')
-        .attr('class', 'barre')
+        .join("div")
+        .attr("class", "barre")
         .transition()
-        .style('width', d => {
-          const medals = d[1][selectedYear]?.medals ?? 0
-          return medals / maxValue * 100 + '%'
+        .style("width", (d) => {
+          const medals = d[1][selectedYear]?.medals ?? 0;
+          return (medals / maxValue) * 100 + "%";
         })
-        .style('background-color', 'red')
-        .style('height', '20px')
-        .style('margin', '7px 0px')
-        .text(d => d[0])
-        // .text(d => d[1][selectedYear].medals)
-        
+        .style("background-color", "red")
+        .style("height", "20px")
+        .style("margin", "7px 0px")
+        .text((d) => d[0] + " " + d[1][selectedYear].medals);
+      // .text(d => )
     }
-  })
-})
+  });
+});
 
+// SECTION 2 dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 
+var bronzeSilverGold = {}; // Iable who has all data about medals of last olympic game and chosen teams
 
-//   // Функция для отображения топ-10 стран по количеству медалей на выбранный год
-//   function displayTop10Countries(selectedYear) {
-//     if (medalCountByYear[selectedYear]) {
-//       // Преобразование объекта в массив и сортировка по общему количеству медалей
-//       var countriesArray = Object.keys(medalCountByYear[selectedYear]).map(function (team) {
-//         return { team: team, total: medalCountByYear[selectedYear][team].Total };
-//       }).sort(function (a, b) {
-//         return b.total - a.total;
-//       });
+var allowedTeams = [
+  //places of last olympic games
+  "Japan",
+  "Republic of Korea",
+  "Brazil",
+  "Russian Federation",
+  "ROC",
+  "Great Britain",
+  "Canada",
+  "People's Republic of China",
+  "Italy",
+  "Greece",
+  "United States",
+  "Australia",
+  "Japan",
+  "United States of America",
+  "Norway",
+  "France",
+];
 
-//       // Выберите только топ-10 стран
-//       var top10Countries = countriesArray.slice(0, 10);
+var teamAliases = {
+  "Russian Federation": "Russia",
+  ROC: "Russia",
+};
 
-//       // Отобразите результаты в HTML-элементе
-//       var resultsDiv = d3.select("#results");
-//       resultsDiv.html("");
-//       resultsDiv.append("h3").text("Top 10 Countries in " + selectedYear);
+d3.csv("main_data.csv").then(function (data) {
+  data.forEach(function (row) {
+    var year = row.year;
+    var team = row.team;
+    var medal = row.Medal;
 
-//       var ul = resultsDiv.append("ul");
-//       top10Countries.forEach(function(country) {
-//         ul.append("li").text(country.team + " - " + country.total + " medals");
-//       });
-//     } else {
-//       d3.select("#results").html("No data available for the selected year.");
-//     }
-//   }
+    // Check if the year is greater than or equal to 1994 and the team is in the allowedTeams list
+    if (
+      year >= 1994 &&
+      (medal === "GOLD" || medal === "SILVER" || medal === "BRONZE") &&
+      allowedTeams.includes(team)
+    ) {
+      // put together  "Russian Federation" and "ROC" under "Russia"
+      if (teamAliases[team]) {
+        team = teamAliases[team];
+      }
 
-//   // Начальное отображение результатов для выбранного года по умолчанию
-//   displayTop10Countries(2001);
+      if (!bronzeSilverGold[team]) {
+        bronzeSilverGold[team] = {};
+      }
 
-//   // Добавьте обработчик событий для элемента ввода range, чтобы обновлять результаты при выборе года
+      // Add missing years
+      var startYear = 1994;
+      var endYear = 2022;
+      for (var i = startYear; i <= endYear; i++) {
+        if (!bronzeSilverGold[team][i]) {
+          bronzeSilverGold[team][i] = {
+            Gold: 0,
+            Silver: 0,
+            Bronze: 0,
+          };
+        }
+      }
 
-// });
+      if (medal === "GOLD") {
+        bronzeSilverGold[team][year].Gold++;
+      } else if (medal === "SILVER") {
+        bronzeSilverGold[team][year].Silver++;
+      } else if (medal === "BRONZE") {
+        bronzeSilverGold[team][year].Bronze++;
+      }
+    }
+  });
 
-// d3.json("medals.json").then(function(data) {
-//   // Preprocess the data
-//   var stack = d3.stack()
-//     .keys(["gold", "silver", "bronze"])
-//     .order(d3.stackOrderNone)
-//     .offset(d3.stackOffsetNone);
+  console.log(bronzeSilverGold, "HERE MEDALS");
 
-//   var layers = stack(data);
+  // Get a list of all countries (teams) from the data
+  var countries = Object.keys(bronzeSilverGold);
+  console.log(countries, "countries");
 
-//   // Set up scales
-//   var xScale = d3.scaleLinear()
-//     .domain([d3.min(data, function(d) { return d.year; }), d3.max(data, function(d) { return d.year; })])
-//     .range([0, 800]);
+  var select = d3.select("#selectedTeam");
+  select
+    .selectAll("option")
+    .data(countries)
+    .enter()
+    .append("option")
+    .text(function (d) {
+      return d;
+    })
+    .attr("value", function (d) {
+      return d;
+    })
+    .property("selected", function (d) {
+      return d === "France";
+    });
 
-//   var yScale = d3.scaleLinear()
-//     .domain([0, d3.max(layers, function(layer) { return d3.max(layer, function(d) { return d[1]; }); })])
-//     .range([400, 0]);
+  function updateStreamgraph() {
+    var selectedTeam = d3.select("#selectedTeam").property("value");
 
-//   // Define color scale
-//   var colorScale = d3.scaleOrdinal()
-//     .domain(["gold", "silver", "bronze"])
-//     .range(["#ffd700", "#c0c0c0", "#cd7f32"]);
+    // Clear the existing graph
+    d3.select("#section3").select("svg").remove();
 
-//   // Generate the area generator
-//   var area = d3.area()
-//     .x(function(d, i) { return xScale(data[i].year); })
-//     .y0(function(d) { return yScale(d[0]); })
-//     .y1(function(d) { return yScale(d[1]); })
-//     .curve(d3.curveBasis);
+    var data = Object.entries(bronzeSilverGold[selectedTeam]).map(
+      ([year, medals]) => ({
+        year: year,
+        Bronze: medals.Bronze,
+        Silver: medals.Silver,
+        Gold: medals.Gold,
+      })
+    );
 
-//   // Draw the steamgraph
-//   var steamgraph = d3.select("#steamgraph");
-//   steamgraph.selectAll("path")
-//     .data(layers)
-//     .enter()
-//     .append("path")
-//     .attr("d", area)
-//     .style("fill", function(d) { return colorScale(d.key); });
+    var data = Object.entries(bronzeSilverGold[selectedTeam]).map(
+      ([year, medals]) => ({
+        year: year,
+        Bronze: medals.Bronze,
+        Silver: medals.Silver,
+        Gold: medals.Gold,
+      })
+    );
 
-//   // Draw x-axis
-//   steamgraph.append("line")
-//     .attr("x1", 0)
-//     .attr("y1", 400)
-//     .attr("x2", 800)
-//     .attr("y2", 400)
-//     .style("stroke", "black");
+    var svg = d3
+      .select("#section3")
+      .append("svg")
+      .attr("width", 3000)
+      .attr("height", 600);
 
-//   // Add x-axis labels
-//   data.forEach(function(d) {
-//     steamgraph.append("text")
-//       .attr("x", xScale(d.year))
-//       .attr("y", 420)
-//       .text(d.year);
-//   });
+    var yScale = d3
+      .scaleLinear()
+      .domain([0, d3.max(data, (d) => d.Bronze + d.Silver + d.Gold)])
+      .range([400, 10]);
 
-//   // Draw y-axis
-//   steamgraph.append("line")
-//     .attr("x1", 0)
-//     .attr("y1", 0)
-//     .attr("x2", 0)
-//     .attr("y2", 400)
-//     .style("stroke", "black");
+    var xScale = d3
+      .scaleBand()
+      .domain(data.map((d) => d.year))
+      .range([30, 1090])
+      .padding(1);
 
-//   // Add y-axis labels
-//   var yAxisLabels = yScale.ticks();
-//   yAxisLabels.forEach(function(d) {
-//     steamgraph.append("text")
-//       .attr("x", -30)
-//       .attr("y", yScale(d))
-//       .attr("dy", 5)
-//       .text(d);
-//   });
+    var colorScale = d3
+      .scaleOrdinal()
+      .domain(["Gold", "Silver", "Bronze"])
+      .range(["#FFD700", "#C0C0C0", "#CD7F32"]);
 
-//   // Update the steamgraph based on the selected year
-//   d3.select("#year-slider").on("input", function() {
-//     var selectedYear = this.value;
+    var areaBronze = d3
+      .area()
+      .x((d) => xScale(d.year))
+      .y0((d) => yScale(0))
+      .y1((d) => yScale(d.Bronze))
+      .curve(d3.curveCatmullRom);
 
-//     // Filter the data to include only the selected year
-//     var filteredData = data.filter(function(d) {
-//       return d.year <= selectedYear;
-//     });
+    var areaSilver = d3
+      .area()
+      .x((d) => xScale(d.year))
+      .y0((d) => yScale(d.Bronze))
+      .y1((d) => yScale(d.Bronze + d.Silver))
+      .curve(d3.curveCatmullRom);
 
-//     // Update scales based on filtered data
-//     xScale.domain([d3.min(filteredData, function(d) { return d.year; }), selectedYear]);
+    var areaGold = d3
+      .area()
+      .x((d) => xScale(d.year))
+      .y0((d) => yScale(d.Bronze + d.Silver))
+      .y1((d) => yScale(d.Bronze + d.Silver + d.Gold))
+      .curve(d3.curveCatmullRom);
 
-//     // Update the area generator
-//     area.x(function(d, i) { return xScale(filteredData[i].year); });
+    svg
+      .append("path")
+      .datum(data)
+      .attr("d", areaBronze)
+      .attr("fill", colorScale("Bronze"))
+      .attr("transform", "translate(0, 0)");
 
-//     // Update the paths of the steamgraph
-//     steamgraph.selectAll("path")
-//       .data(stack(filteredData))
-//       .attr("d", area);
-//   });
-// });
+    svg
+      .append("path")
+      .datum(data)
+      .attr("d", areaSilver)
+      .attr("fill", colorScale("Silver"));
+
+    svg
+      .append("path")
+      .datum(data)
+      .attr("d", areaGold)
+      .attr("fill", colorScale("Gold"));
+
+    var xAxis = d3.axisBottom(xScale);
+    svg.append("g").attr("transform", "translate(0, 400)")
+    .call(xAxis);
+
+ 
+    var yAxis = d3.axisLeft(yScale);
+    svg.append("g").attr("transform", "translate(65, 0)").call(yAxis);
+
+    console.log("Updated streamgraph for team: " + selectedTeam);
+
+    var olympicGames = [
+      { country: "Norway", city: "Lillehammer", year: 1994, season: "Winter" },
+      { country: "United States of America", city: "Atlanta", year: 1996, season: "Summer" },
+      { country: "Japan", city: "Nagano", year: 1998, season: "Winter" },
+      { country: "Australia", city: "Sydney", year: 2000, season: "Summer" },
+      { country: "United States of America", city: "Salt Lake City", year: 2002, season: "Winter" },
+      { country: "Greece", city: "Athens", year: 2004, season: "Summer" },
+      { country: "Italy", city: "Turin", year: 2006, season: "Winter" },
+      { country: "People's Republic of China", city: "Beijing", year: 2008, season: "Summer" },
+      { country: "Canada", city: "Vancouver", year: 2010, season: "Winter" },
+      { country: "Great Britain", city: "London", year: 2012, season: "Summer" },
+      { country: "Russia", city: "Sochi", year: 2014, season: "Winter" },
+      { country: "Brazil", city: "Rio", year: 2016, season: "Summer" },
+      { country: "Republic of Korea", city: "PyeongChang", year: 2018, season: "Winter" },
+      { country: "Japan", city: "Tokyo", year: 2020, season: "Summer" },
+      { country: "People's Republic of China", city: "Beijing", year: 2022, season: "Winter" }
+    ];
+
+    var selectedTeam = d3.select("#selectedTeam").property("value");
+
+    // Check if the selected team is "France"
+    if (selectedTeam === "France") {
+      d3.select("#host").html("<p>Last Time that france were hosting the Olympic games was 1992. She was shared her duties with Spain.</p>");
+
+    }
+
+    // Find the year for the selected team
+    var selectedGame = olympicGames.find(function (game) {
+      return game.country === selectedTeam;
+    });
+
+    // Check if a matching game is found
+    if (selectedGame) {
+      var selectedYear = selectedGame.year;
+      var selectedCity = selectedGame.city;
+      var selectedSeason = selectedGame.season;
+
+      // Remove existing content inside the "host" element
+  d3.select("#host").html("");
+
+  // Append the new div with the content
+  d3.select("#host").append("div").html(`
+    <p>In <span id="year-host">${selectedYear}</span> <span id="host-country">${selectedTeam}</span> hosted ${selectedSeason} Olympic Games in ${selectedCity}</p>
+  `);
+
+      console.log(
+        "Updated streamgraph for team: " +
+          selectedTeam +
+          " in year: " +
+          selectedYear
+      );
+    } else {
+      console.log("No data found for team: " + selectedTeam);
+    }
+  }
+
+  // Initial update to show the streamgraph for the default selected team
+  updateStreamgraph();
+
+  // Add an event listener to the select element
+  d3.select("#selectedTeam").on("change", updateStreamgraph);
+});
