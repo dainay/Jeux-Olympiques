@@ -204,7 +204,14 @@ header {
 
 .box-medal:nth-of-type(4) span{
     color: rgb(121, 68, 55);
+     
 }
+
+.box-medal:nth-of-type(4){
+   
+    margin-right: 100px;
+}
+
 
 .box-medal:not(.total) {
 padding-top: 30px;
@@ -222,23 +229,21 @@ padding-top: 30px;
 }
 
 #section1-wrapp {
-    height: 90vh;
     position: relative;
     width: 100%;
     box-shadow: 15px 0 10px 10px #92929248;
     border-radius: 0 0 25% 0;
     overflow: hidden;
     font-family: "paris2024";
+    border: green solid;
 
 }
 
 
 #section1-wrapp h2 {
     font-size: 9rem;
-    line-height: 9.3rem;
-    position: absolute;
-    top: 40px;
-    left: 140px;
+    margin: 50px 0 50px 100px;
+    line-height: 8rem;
     background: -webkit-linear-gradient(left, #423824,#d7c378);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -252,4 +257,30 @@ padding-top: 30px;
     left: 200px;
     font-size: 1.3rem;
     color: #423824;
+}
+
+#section1 {
+    border: violet solid;
+    min-height: 500px;
+    width: 70%;
+}
+
+
+#bar-around {
+    display: flex;
+    
+    
+}
+
+#selected-year {
+    font-size: 10rem;
+    position: relative;
+    top: 350px;
+}
+
+
+#bar-around span {
+    font-size: 2rem;
+    float: right;
+ 
 }

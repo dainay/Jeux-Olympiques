@@ -9,8 +9,6 @@
     <!-- Load d3.js -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
     <style>
-        
-
         #year {
             width: 70%;
         }
@@ -82,7 +80,7 @@
 
     <section id="section-counter">
         <div class="wrap-counter">
-            <h2>How many medals  were won?</h2>
+            <h2>How many medals were won?</h2>
             <p>During more than 100 years of olympic history a lot of medals were won</p>
             <div class="medals-counter">
                 <div class="box-medal total"> Total <br><span id="total"></span></div>
@@ -103,15 +101,19 @@
 
     <section id="section1-wrapp">
         <h2>What was the best score during the years? <br></h2>
-        <p>fdsafdsfd</p>
+        <div id="bar-around">
+            <div id="section1">
+                <input type="range" id="year" value="2000">
+                <div id="results"></div>
 
-        <div id="section1">
-            <div id="div-section1" style="display: none;">
-                <h1>AAAAAAAAAAAAAA</h1>
+                <div id="div-section1" style="display: none;">
+                    <p>AAAAAAAAAAAAAA</p>
+                </div>
             </div>
-            <input type="range" id="year" value="1890">
-            <div id="results"></div>
-            <div id="selected-year"></div>
+            <div>
+                <span>Year :</span>
+                <div id="selected-year"></div>
+            </div>
         </div>
 
     </section>

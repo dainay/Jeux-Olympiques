@@ -142,14 +142,14 @@ d3.csv("main_data.csv").then(function (data) {
   aaa(data);
   console.log(medalCountByYear); // check that table is working
   // check that table is working
-  var selectedYear = 1896;
+  var selectedYear = 2000;
 
 
 
   
 
   var rangeInput = d3.select("#year");
-  dessin (1896)
+  dessin (selectedYear)
   rangeInput.on("input", function  () {
     selectedYear = this.value; //take input
     dessin(selectedYear);
@@ -198,8 +198,8 @@ d3.csv("main_data.csv").then(function (data) {
     console.log(maxValue); // max medals in history by one country
 
     if (selectedYear == 1916 || selectedYear == 1940 || selectedYear == 1944) {
-      d3.select("#section1").selectAll(".barre").transition().remove();
-      d3.select("#div-section1").transition().style("display", "block");
+      d3.select("#section1").selectAll(".barre").remove();
+      d3.select("#div-section1").style("display", "block");
     } else {
       d3.select("#div-section1").style("display", "none");
       d3.select("#section1")
@@ -210,12 +210,26 @@ d3.csv("main_data.csv").then(function (data) {
         .transition()
         .style("width", (d) => {
           const medals = d[1][selectedYear]?.medals ?? 0;
-          return (medals / maxValue) * 100 + "%";
+          return (medals / maxValue) * 200 + "%";
         })
-        .style("background-color", "red")
-        .style("height", "20px")
-        .style("margin", "7px 0px")
-        .text((d) => d[0] + " " + d[1][selectedYear]?.medals??0);
+        .style("background", d => {
+          return "linear-gradient(to right, #570047, #A340B2)"; 
+        })
+        .style("height", "60px")
+        .style("margin", "3px 0px")
+        .style("border-radius", "0 25px 25px 0")
+        .text((d) => d[0] + ", " + d[1][selectedYear].medals + "  medals ")
+        .style("color", (d) => {
+          const qty = d[1][selectedYear].medals;
+          if (qty < 15) {
+            return "black"; 
+          } else {
+            return "white"; 
+          }
+        })
+        .style("white-space", "nowrap") 
+        .style("padding", "17px  0 0 10px")     
+         ;
       // .text(d => )
     }
   }
