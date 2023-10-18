@@ -32,28 +32,46 @@ body{
     font-family: "Source Sans";
 }
 
+header {
+    background-color:black;
+    border-radius: 0% 0% 25% 0%;
+    box-shadow: 0 0 10px 10px #00000048;
+   
+}
+
 .bloc_accueil{
-    background-image: url(./img/accueil_1400.jpg);
+    
+    background-image: linear-gradient( rgba(31, 23, 23, 0.274), rgba(255, 0, 0, 0) ),
+     url("./img/La Seine Olympique.webp");
     background-size: cover;
+ 
     background-repeat: no-repeat;
-    height: 110vh;
+    height: 100vh;
     border-radius: 0% 0% 25% 0%;
     background-position: center;
     background-attachment: fixed;
 }
 
+
+
 .logo{
     margin: auto;
-    width: 225px;
+    width: 8%;
+    padding-top: 20px ;
 }
 
+ 
 
 .dataviz{
     font-family: "Paris2024";
-    font-size: 9rem;
+    font-size: 11rem;
     color: #FFFFFF;
-    text-align: right;
-    padding-right: 15px;
+    text-align: left;
+    padding-left: 50px;
+    text-shadow: black 0px 0px 10px 15px;
+    padding-top: 100px;
+    line-height: 9rem;
+  
 }
 
 
@@ -87,3 +105,119 @@ body{
         font-size: 7.5rem;
     }
 }
+
+
+#timer {
+    margin: auto;
+    width: 700px;
+    background-color: white;
+    border-radius: 50px;
+    box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.068);
+    height: 80px;
+    margin-top: 30px ;
+    display: flex;
+    font-family: 'Paris2024';
+    font-size: 3rem;
+    justify-content: space-around;
+    padding: 20px 20px;
+    line-height: 1rem;
+    align-items: center;
+}
+
+#timer p {
+    font-size: 1.3rem ;
+}
+
+#timer span {
+    font-size: 1rem;
+    text-align: center;
+}
+
+#section-counter {
+    height: 700px;
+    font-family: "Paris2024";
+    display: flex;
+    border-radius: 0%  30%  0% 0%;
+    overflow: hidden;
+    justify-content:space-between;
+    position: relative;
+    margin: 50px 0;
+    box-shadow: 15px 0 10px 10px #92929248;
+}
+
+.medals-counter {
+    display: flex;
+    justify-content: space-around;
+    font-family: "Paris2024";
+
+}
+
+#medal-img {
+    width: 40%;
+    background-image: url("./img/med.jpg");
+    background-size: cover;
+    float: right;
+ 
+}
+
+#section-counter h2 {
+    font-size: 9rem;
+    line-height: 7rem;
+    position: absolute;
+    top: 50px;
+    left: 140px;
+    background: -webkit-linear-gradient(left, #423824,#d7c378);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  
+}
+
+#section-counter p{
+    position: relative;
+    top: 300px;
+    left: 200px;
+    font-size: 1.3rem;
+    color: #423824;
+}
+
+.box-medal {
+    width: 230px;
+ 
+    font-size: 2rem;
+    font-family: "Source Sans";
+    font-weight: 700;
+    color: #423824;
+    text-align: center;
+    position: relative;
+    top: 410px;
+    left: 50px;
+  
+}
+
+.box-medal:nth-of-type(2) span{
+    color: rgb(165, 134, 49);
+}
+
+.box-medal:nth-of-type(3) span{
+    color: rgb(126, 126, 126);
+}
+
+.box-medal:nth-of-type(4) span{
+    color: rgb(121, 68, 55);
+}
+
+.box-medal:not(.total) {
+padding-top: 30px;
+ }
+
+#section-counter span {
+    font-size: 4rem;
+    font-family: "Paris2024";
+}
+
+.total {
+    font-size: 4rem;
+    margin-right: 60px;
+    
+}
+

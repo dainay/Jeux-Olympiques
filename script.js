@@ -1,4 +1,87 @@
+//timer dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+var countDownDate = new Date("Jul 26, 2024 20:00:00").getTime();
+var timer = setInterval(function() {
+
+  // Получить текущее время 
+  var now = new Date().getTime();
+  
+  // Вычислить оставшееся время 
+  var timeleft = countDownDate - now;
+  
+  // Рассчитать дни, часы, минуты и секунды 
+  var days = Math.floor(timeleft / (1000 * 60 * 60 * 24)); var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60)); var seconds = Math.floor((timeleft % (1000 * 60)) / 1000);
+  
+  // Обновить значения на странице 
+  document.getElementById("days").innerHTML = days + " <br><span>days</span> "; document.getElementById("hours").innerHTML = hours + "<br><span> hours</span> "; document.getElementById("mins").innerHTML = minutes + "<br><span>mins</span> "; document.getElementById("secs").innerHTML = seconds + "<br><span>sec</span>";
+  
+  }, 1000);
 //dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+ 
+var totalMedals = 0;
+var goldMedals = 0;
+var silverMedals = 0;
+var bronzeMedals = 0;
+ 
+d3.csv("main_data.csv").then(function (data) {
+  
+  data.forEach(function (row) {
+    var medal = row.Medal;
+    
+    
+    if (medal === "GOLD") {
+      goldMedals++;
+    } else if (medal === "SILVER") {
+      silverMedals++;
+    } else if (medal === "BRONZE") {
+      bronzeMedals++;
+    }
+    
+    // all medals
+    totalMedals++;
+    
+  });
+  console.log(totalMedals,goldMedals,silverMedals,bronzeMedals, "check total medals");
+//put all medals on the page
+
+// document.getElementById('total').innerText = totalMedals; 
+
+
+let start = 0; 
+ 
+var timerTotal = setInterval(function() {
+  if (start < totalMedals) {
+    document.getElementById('total').innerText = start + 1;
+    start=Math.min(start+53, totalMedals); 
+  } 
+}, 0.0001);
+
+
+
+var timerTotal = setInterval(function() {
+  if (start < goldMedals) {
+    document.getElementById('gold').innerText  = start + 1;
+    start++; 
+  } 
+}, 1);
+
+
+var timerTotal = setInterval(function() {
+  if (start < silverMedals) {
+    document.getElementById('silver').innerText  = start + 1;
+    start++; 
+  } 
+}, 1);
+
+var timerTotal = setInterval(function() {
+  if (start < bronzeMedals) {
+    document.getElementById('bronze').innerText  = start + 1;
+    start++; 
+  } 
+}, 1);
+
+});
+ 
+//ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 
 var medalCountByYear = {};
 
@@ -59,24 +142,28 @@ d3.csv("main_data.csv").then(function (data) {
   aaa(data);
   console.log(medalCountByYear); // check that table is working
   // check that table is working
-  var selectedYear = 1890;
+  var selectedYear = 1896;
 
 
 
   
 
   var rangeInput = d3.select("#year");
-
-  rangeInput.on("input", function () {
+  dessin (1896)
+  rangeInput.on("input", function  () {
     selectedYear = this.value; //take input
+    dessin(selectedYear);
+  });
+  function dessin(selectedYear){
     console.log("Selected Year:", selectedYear); //check input
-
+ 
     if (selectedYear <= 1994) {
       var step = 4;
     }
     if (selectedYear > 1994) {
       var step = 2;
     }
+
 
     console.log(step);
 
@@ -92,6 +179,7 @@ d3.csv("main_data.csv").then(function (data) {
       })
       .slice(0, 10);
 
+      console.log(sortedData)
     // showing bars with d3
     d3.select("#selected-year").text(selectedYear);
 
@@ -127,10 +215,10 @@ d3.csv("main_data.csv").then(function (data) {
         .style("background-color", "red")
         .style("height", "20px")
         .style("margin", "7px 0px")
-        .text((d) => d[0] + " " + d[1][selectedYear].medals);
+        .text((d) => d[0] + " " + d[1][selectedYear]?.medals??0);
       // .text(d => )
     }
-  });
+  }
 });
 
 // SECTION 2 dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
