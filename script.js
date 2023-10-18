@@ -61,6 +61,10 @@ d3.csv("main_data.csv").then(function (data) {
   // check that table is working
   var selectedYear = 1890;
 
+
+
+  
+
   var rangeInput = d3.select("#year");
 
   rangeInput.on("input", function () {
