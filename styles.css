@@ -134,7 +134,7 @@ header {
 }
 
 #section-counter {
-    height: 700px;
+    height: 800px;
     font-family: "Paris2024";
     display: flex;
     border-radius: 0%  30%  0% 0%;
@@ -164,7 +164,7 @@ header {
     font-size: 9rem;
     line-height: 7rem;
     position: absolute;
-    top: 50px;
+    top: 60px;
     left: 140px;
     background: -webkit-linear-gradient(left, #423824,#d7c378);
     -webkit-background-clip: text;
@@ -174,7 +174,7 @@ header {
 
 #section-counter p{
     position: relative;
-    top: 300px;
+    top: 310px;
     left: 200px;
     font-size: 1.3rem;
     color: #423824;
@@ -189,7 +189,7 @@ header {
     color: #423824;
     text-align: center;
     position: relative;
-    top: 410px;
+    top: 450px;
     left: 50px;
   
 }
@@ -221,3 +221,35 @@ padding-top: 30px;
     
 }
 
+#section1-wrapp {
+    height: 90vh;
+    position: relative;
+    width: 100%;
+    box-shadow: 15px 0 10px 10px #92929248;
+    border-radius: 0 0 25% 0;
+    overflow: hidden;
+    font-family: "paris2024";
+
+}
+
+
+#section1-wrapp h2 {
+    font-size: 9rem;
+    line-height: 9.3rem;
+    position: absolute;
+    top: 40px;
+    left: 140px;
+    background: -webkit-linear-gradient(left, #423824,#d7c378);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-family: "Paris2024";
+     
+}
+
+#section1-wrapp p{
+    position: relative;
+    top: 310px;
+    left: 200px;
+    font-size: 1.3rem;
+    color: #423824;
+}
