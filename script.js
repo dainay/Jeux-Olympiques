@@ -263,6 +263,7 @@ d3.csv('main_data.csv').then(function (data) {
     
         
         .style('white-space', 'nowrap')
+        
       // .text(d => )
     }
   }
@@ -391,8 +392,8 @@ d3.csv('main_data.csv').then(function (data) {
     var svg = d3
       .select('#section3')
       .append('svg')
-      .attr('width', 3000)
-      .attr('height', 600)
+      .attr('width', 1840)
+      .attr('height', 470)
 
     var yScale = d3
       .scaleLinear()
@@ -402,13 +403,13 @@ d3.csv('main_data.csv').then(function (data) {
     var xScale = d3
       .scaleBand()
       .domain(data.map(d => d.year))
-      .range([30, 1090])
+      .range([3, 1850])
       .padding(1)
 
     var colorScale = d3
       .scaleOrdinal()
       .domain(['Gold', 'Silver', 'Bronze'])
-      .range(['#FFD700', '#C0C0C0', '#CD7F32'])
+      .range(['#f3ea65', '#d6d6d6', '#e9a477'])
 
     var areaBronze = d3
       .area()
@@ -452,6 +453,7 @@ d3.csv('main_data.csv').then(function (data) {
 
     var xAxis = d3.axisBottom(xScale)
     svg.append('g').attr('transform', 'translate(0, 400)').call(xAxis)
+    .attr('stroke-width', 1) 
 
     var yAxis = d3.axisLeft(yScale)
     svg.append('g').attr('transform', 'translate(65, 0)').call(yAxis)

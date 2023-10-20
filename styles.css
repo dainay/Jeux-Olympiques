@@ -3,8 +3,8 @@
 *,
 *::after,
 *::before {
-  box-sizing: border-box;
-  margin: 0;
+    box-sizing: border-box;
+    margin: 0;
 }
 
 @font-face {
@@ -25,7 +25,7 @@
     font-style: normal;
 }
 
-body{
+body {
     background-color: #F1F1F1;
     font-size: 1.25rem;
     color: black;
@@ -33,18 +33,18 @@ body{
 }
 
 header {
-    background-color:black;
+    background-color: black;
     border-radius: 0% 0% 25% 0%;
     box-shadow: 0 0 10px 10px #00000048;
-   
+
 }
 
-.bloc_accueil{
-    
-    background-image: linear-gradient( rgba(31, 23, 23, 0.274), rgba(255, 0, 0, 0) ),
-     url("./img/La Seine Olympique.webp");
+.bloc_accueil {
+
+    background-image: linear-gradient(rgba(31, 23, 23, 0.274), rgba(255, 0, 0, 0)),
+        url("./img/La Seine Olympique.webp");
     background-size: cover;
- 
+
     background-repeat: no-repeat;
     height: 110vh;
     border-radius: 0% 0% 25% 0%;
@@ -54,15 +54,15 @@ header {
 
 
 
-.logo{
+.logo {
     margin: auto;
     width: 8%;
-    padding-top: 20px ;
+    padding-top: 20px;
 }
 
- 
 
-.dataviz{
+
+.dataviz {
     font-family: "Paris2024";
     font-size: 11rem;
     color: #FFFFFF;
@@ -71,12 +71,12 @@ header {
     text-shadow: black 0px 0px 10px 15px;
     padding-top: 100px;
     line-height: 9rem;
-  
+
 }
 
 
 
-.bloc_fact{
+.bloc_fact {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -88,20 +88,20 @@ header {
 }
 
 /* TITRE DE L'ACCUEIL */
-@media (max-width: 1274px){
-    .dataviz{
+@media (max-width: 1274px) {
+    .dataviz {
         font-size: 8.5rem;
     }
 }
 
-@media (max-width: 1189px){
-    .dataviz{
+@media (max-width: 1189px) {
+    .dataviz {
         font-size: 8rem;
     }
 }
 
-@media (max-width: 1107px){
-    .dataviz{
+@media (max-width: 1107px) {
+    .dataviz {
         font-size: 7.5rem;
     }
 }
@@ -114,7 +114,7 @@ header {
     border-radius: 50px;
     box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.068);
     height: 80px;
-    margin-top: 30px ;
+    margin-top: 30px;
     display: flex;
     font-family: 'Paris2024';
     font-size: 3rem;
@@ -125,7 +125,7 @@ header {
 }
 
 #timer p {
-    font-size: 1.3rem ;
+    font-size: 1.3rem;
 }
 
 #timer span {
@@ -137,12 +137,13 @@ header {
     height: 800px;
     font-family: "Paris2024";
     display: flex;
-    border-radius: 0%  30%  0% 0%;
+    border-radius: 0% 30% 0% 0%;
     overflow: hidden;
-    justify-content:space-between;
+    justify-content: space-between;
     position: relative;
     margin: 50px 0;
     box-shadow: 15px 0 10px 10px #92929248;
+    background-color: white;
 }
 
 .medals-counter {
@@ -157,7 +158,7 @@ header {
     background-image: url("./img/med.jpg");
     background-size: cover;
     float: right;
- 
+
 }
 
 #section-counter h2 {
@@ -166,13 +167,13 @@ header {
     position: absolute;
     top: 60px;
     left: 140px;
-    background: -webkit-linear-gradient(left, #423824,#d7c378);
+    background: -webkit-linear-gradient(left, #423824, #d7c378);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-  
+
 }
 
-#section-counter p{
+#section-counter p {
     position: relative;
     top: 310px;
     left: 200px;
@@ -182,7 +183,7 @@ header {
 
 .box-medal {
     width: 230px;
- 
+
     font-size: 2rem;
     font-family: "Source Sans";
     font-weight: 700;
@@ -191,31 +192,31 @@ header {
     position: relative;
     top: 450px;
     left: 50px;
-  
+
 }
 
-.box-medal:nth-of-type(2) span{
+.box-medal:nth-of-type(2) span {
     color: rgb(165, 134, 49);
 }
 
-.box-medal:nth-of-type(3) span{
+.box-medal:nth-of-type(3) span {
     color: rgb(126, 126, 126);
 }
 
-.box-medal:nth-of-type(4) span{
+.box-medal:nth-of-type(4) span {
     color: rgb(121, 68, 55);
-     
+
 }
 
-.box-medal:nth-of-type(4){
-   
+.box-medal:nth-of-type(4) {
+
     margin-right: 100px;
 }
 
 
 .box-medal:not(.total) {
-padding-top: 30px;
- }
+    padding-top: 30px;
+}
 
 #section-counter span {
     font-size: 4rem;
@@ -225,7 +226,7 @@ padding-top: 30px;
 .total {
     font-size: 4rem;
     margin-right: 60px;
-    
+
 }
 
 #section1-wrapp {
@@ -235,7 +236,8 @@ padding-top: 30px;
     border-radius: 0 0 25% 0;
     overflow: hidden;
     font-family: "paris2024";
-    border: green solid;
+    background-color: white;
+
 
 }
 
@@ -244,15 +246,15 @@ padding-top: 30px;
     font-size: 9rem;
     margin: 50px 0 50px 100px;
     line-height: 8rem;
-    background: -webkit-linear-gradient(left, #423824,#d7c378);
+    background: -webkit-linear-gradient(left, #412442, #c96ec4);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     font-family: "Paris2024";
-    
-     
+
+
 }
 
-#section1-wrapp p{
+#section1-wrapp p {
     position: relative;
     top: 310px;
     left: 200px;
@@ -270,8 +272,8 @@ padding-top: 30px;
 
 #bar-around {
     display: flex;
-    
-    
+
+
 }
 
 #selected-year {
@@ -280,41 +282,40 @@ padding-top: 30px;
     top: 350px;
 }
 
- 
+
 
 #bar-around span {
     font-size: 2rem;
     float: right;
- 
+
 }
 
 #years span {
     position: relative;
-    top: 380px;
-
+    top: 380px; 
 }
 
- 
- 
+
+
 input[type="range"] {
     outline: 0;
     border: 0;
     border-radius: 500px;
-    width: 400px;
-    max-width: 100%;
-   
+    width: 600px;
+
     transition: box-shadow 1s ease-in-out;
-   margin: 30px;
-   margin-left: 100px;
-   overflow: hidden;
-   
-    @media screen and (-webkit-min-device-pixel-ratio:0) {
+    margin: 30px;
+    margin-left: 100px;
+    overflow: hidden;
+
+   @media screen and (-webkit-min-device-pixel-ratio:0) {
         & {
-            
+
             height: 20px;
             -webkit-appearance: none;
             background-color: #ccc7c73d;
         }
+
         &::-webkit-slider-runnable-track {
             height: 20px;
             -webkit-appearance: none;
@@ -324,8 +325,9 @@ input[type="range"] {
         }
 
         &::-webkit-slider-runnable-track {
-          overflow: hidden;
+            overflow: hidden;
         }
+
         &::-webkit-slider-thumb {
             width: 30px;
             -webkit-appearance: none;
@@ -339,11 +341,81 @@ input[type="range"] {
             top: 1px;
             cursor: grab;
         }
+
         &:active::-webkit-slider-thumb {
             background: #fff;
             box-shadow: -440px 0 0 420px #df97e5, inset 0 0 0 3px #ce95c9;
             cursor: grabbing;
-          
-        } }
-    
+
+        }
     }
+
+}
+
+#section1-wrapp p {
+    position: relative;
+    top: -10px; 
+    
+}
+
+/* section 3 */
+
+#section3-wrapp{
+    margin: 20px 0;
+    border: solid rgb(36, 192, 166);
+    width: 100%;
+    box-shadow: 15px 0 10px 10px #92929248;
+    border-radius:25% 0 0  0;
+    padding-top: 120px;
+    padding-left: 50px;
+    overflow: hidden;
+    font-family: "paris2024";
+    background-color: white;
+}
+
+#section3-wrapp h2 {
+font-size: 9rem;
+margin: 50px 0 50px 100px;
+line-height: 8rem;
+background: -webkit-linear-gradient(right, #6f7eac, #2b1d5e);
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+font-family: "Paris2024";
+
+}
+
+#section3-wrapp p {
+    padding-left: 100px;
+}
+
+select {
+    width: 1000px;
+    height: 70px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    margin: 20px 0 60px 100px;
+    font-family: "Paris2024";
+    font-size: 2rem;
+   background-color: #f3f2f2;
+transition: all ease 1s;
+font-weight: 900;
+}
+
+select:hover {
+    background-color: #99a9d863;
+   
+}
+
+ select:focus {
+    background-color: #f3f2f2;
+    border: none;
+    outline: none;
+ }
+
+#section3 {
+    font-family: "Paris2024";
+}
+
+ 
