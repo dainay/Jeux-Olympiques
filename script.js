@@ -273,6 +273,7 @@ d3.csv('main_data.csv').then(function (data) {
 
 var bronzeSilverGold = {} // Iable who has all data about medals of last olympic game and chosen teams
 
+
 var allowedTeams = [
   //places of last olympic games
   'Japan',
@@ -365,6 +366,24 @@ d3.csv('main_data.csv').then(function (data) {
       return d === 'France'
     })
 
+    //to make graph responsive
+    let newWidth = window.innerWidth;
+
+    d3.select(window).on('resize', () => {
+      // Get the new width of the browser window
+      const newSize = window.innerWidth;
+    
+      if (newSize < 1024) {
+        newWidth = 1024;
+      } else {
+        newWidth = newSize;
+      }
+    
+      console.log(newWidth, 'newWidth');
+      // You can call your updateStreamgraph() function here with the updated width.
+      updateStreamgraph();
+    });
+
   function updateStreamgraph () {
     var selectedTeam = d3.select('#selectedTeam').property('value')
 
@@ -388,11 +407,14 @@ d3.csv('main_data.csv').then(function (data) {
         Gold: medals.Gold
       })
     )
+ 
+    
+    
 
     var svg = d3
       .select('#section3')
       .append('svg')
-      .attr('width', 1840)
+      .attr('width', newWidth+100)
       .attr('height', 470)
 
     var yScale = d3
@@ -403,7 +425,7 @@ d3.csv('main_data.csv').then(function (data) {
     var xScale = d3
       .scaleBand()
       .domain(data.map(d => d.year))
-      .range([3, 1850])
+      .range([newWidth/22.5-1, newWidth-100])
       .padding(1)
 
     var colorScale = d3
