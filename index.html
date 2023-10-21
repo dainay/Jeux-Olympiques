@@ -17,15 +17,17 @@
             min-width: 1024px;
         }
 
-        #section3 .tick:nth-of-type(4n-1) {
-            color: red;
-            font-family: "Paris2024";
-        }
-
-        #section3 .tick:nth-of-type(4n-3) {
-            color: blue;
-            font-family: "Paris2024";
-        }
+ section {
+    padding-right: 70px;
+ }
+ g:nth-of-type(1) .tick:nth-child(4n) {
+  color: rgb(214, 91, 91);
+  font-family: "Paris2024";
+}
+g:nth-of-type(1) .tick:nth-child(4n-2) {
+  color: rgb(108, 108, 212);
+  font-family: "Paris2024";
+}
     </style>
 </head>
 
@@ -131,26 +133,42 @@
 
     <section id="section3-wrapp">
         <h2>Does the hosting country win more?</h2>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, quisquam! Neque, nemo molestiae amet eos ex corporis accusamus magni adipisci ut autem illum et vitae architecto perspiciatis vero debitis dolor?</p>
+<p class="sec3-p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, quisquam! Neque, nemo molestiae amet eos ex corporis accusamus magni adipisci ut autem illum et vitae architecto perspiciatis vero debitis dolor?</p>
 <br><br>
         <select name="selectedTeam" id="selectedTeam"></select>
         <!-- to choose the country -->
 
         <div id="section3"></div>
         <!-- put the svg here -->
-        <div id="host">
-            <!-- info about seleced country -->
-        </div>
 
-        <p>You should not forget that Summer olimpic games propose in general 300 medals sets, and winters only 100.so
-            correlatin in 3 to 1 between summer and winter gained medals is normal and means that this country tries to
-            sevelopes all kind of sports. If this attitude is higher or lower we can tell that the country is stronger
-            in summer or winter games, what can be connected with climat and culture politics </p>
+
+        <div class="info-wrapp">
+            <div id="host">
+                <!-- info about seleced country -->
+            </div>
+            <div class="sec3-correlation">
+                <p>The Summer Olympic Games typically offer around 300 medal sets, while the Winter Olympics provide only about 100. Therefore, a correlation of 3 to 1 between the medals won in Summer and Winter Games is considered normal. This correlation suggests that a country is striving to excel in a wide variety of sports. <br> If this correlation is higher or lower, it can indicate whether the country is stronger in Summer or Winter Games, which may be connected to climate and cultural politics. </p>
+            </div>
+        </div>
     </section>
 
 
 
+<section>
+    <div id="chart"></svg>
 
+</section>
+
+
+<section>
+    <h2>Champions</h2>
+    <p></p>
+    <div >
+        <ul id="top-athlets">
+            
+        </ul>
+    </div>
+</section>
 
     <script src="script.js"></script>
 </body>
