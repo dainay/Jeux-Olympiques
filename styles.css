@@ -171,15 +171,15 @@ header {
     -webkit-text-fill-color: transparent;
     display: inline-block;
     position: relative;
-    width: 130%;
+    width: 120%;
     z-index: 2;
 
 }
 
-@media (max-width: 1240px) {
+@media (max-width: 1500px) {
     #section-counter h2 {
         display: block;
-        width: 100%;
+        width: 60%;
        
         }
 }
@@ -372,7 +372,6 @@ input[type="range"] {
 
 #section3-wrapp{
     margin: 20px 0;
-    border: solid rgb(36, 192, 166);
     width: 100%;
     box-shadow: 15px 0 10px 10px #92929248;
     border-radius:25% 0 0  0;
@@ -482,11 +481,106 @@ font-size: 1.3rem;
 font-style: normal;
 }
 
+
+#section-hosttop {
+    background-color: white;
+    font-family: "Paris2024";
+    border-radius: 0% 30%  0%  0%;
+    overflow: hidden;
+    margin-bottom: 50px 0;
+    box-shadow: 15px 0 10px 10px #92929248;
+
+}
+
+#section-hosttop h2 {
+    font-size: 9rem;
+    line-height: 7rem;
+    margin: 50px 0px 20px 100px;
+    background: -webkit-linear-gradient(left, #6d494a, #bb4545);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+#section-hosttop p {
+    margin: 20px 100px;
+    }
 #chart {
- 
-    background-color: #412442;
+
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: flex-end;
+    width: 70%;
+   
+    margin: 50px auto;
 }
+
+.inscr .country {
+    writing-mode: vertical-lr;
+text-orientation: mixed;
+
+
+
+}
+
+
+.inscr {
+    padding-top: 5%;
+    position: relative;
+}
+
+.inscr .count {
+position: absolute;
+top: 2px;
+font-size: 4rem;
+left: 30%;
+}
+
+#section-champions  {
+    background-color: white;
+    font-family: "Paris2024";
+    border-radius: 0%  0% 30% 0%;
+    overflow: hidden;
+    margin: 50px 0;
+    box-shadow: 15px 0 10px 10px #92929248;
+ 
+
+}
+
+#section-champions h2 {
+    font-size: 9rem;
+    line-height: 7rem;
+    margin: 50px 0px 20px 100px;
+    background: -webkit-linear-gradient(left, #1f7970, #97e0d4);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+}
+
+#section-champions p, #chart {
+ 
+}
+
+#top-athlets { 
+    border: solid green;
+       /* list-style: none; */
+       margin: 100px 0;
+       margin: 20px 100px;
+       
+}
+
+#top-athlets a {
+    text-decoration: none;
+    color: #202020;
+    
+}
+
+.sportsman {
+    border: #423824 solid;
+    border-radius: 0 10px 10px 0;
+    height: 4rem;
+    font-size: 1.5rem;
+    
+}
+ 

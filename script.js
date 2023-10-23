@@ -633,7 +633,7 @@ fetch("hosting.json")
     //   top 5 countries
     var topLocations = Object.entries(locationCount)
       .sort((a, b) => b[1] - a[1])
-      .slice(0, 5);
+      .slice(0, 10);
 console.log(topLocations);
 
     // Create the bar chart
@@ -644,10 +644,16 @@ console.log(topLocations);
       .enter()
       .append("div")
       .attr("class", "bar")
-      .style("width","30px")
-      .style("height", d => `${d[1] * 20}px`)
-      .text(d => `${d[0]}: ${d[1]}`); // Add the country name and number of hostings
-
+      .style("width","11%")
+      .style("height", d => `${d[1] * 60}px`)
+      .style('background', d => {
+        return 'linear-gradient(to top, #6d494a, #bb4545)'
+      })
+      .style('padding', '5px')
+      .style('margin', '1px')
+      .style('border-radius', ' 5px 5px 0 0' )
+     .html(d => `<div class="inscr"><span class="country">${d[0]}</span> <span class="count">${d[1]}</span></div>`); 
+ 
     chart.selectAll("div.bar")
       .style("background-color", "red")
       .style("color", "white")
@@ -700,11 +706,11 @@ console.log(topLocations);
       d3.select("#top-athlets")
         .append("li")
         .html(
-          `<p><a href="${athleteMedals[athlete].url}">${athlete}</a> from ${
+          `<div class="sportsman"><a href="${athleteMedals[athlete].url}">${athlete} from ${
             Object.keys(athleteMedals[athlete].countries).join(", ")
           } won ${athleteMedals[athlete].total} medals (${athleteMedals[athlete].goldMedals} gold, ${
             athleteMedals[athlete].silverMedals
-          } silver, ${athleteMedals[athlete].bronzeMedals} bronze.)</p>`
+          } silver, ${athleteMedals[athlete].bronzeMedals} bronze.)</a></div>`
         );
     });
   });
