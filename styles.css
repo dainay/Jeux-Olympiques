@@ -35,7 +35,7 @@ body {
 header {
     background-color: black;
     border-radius: 0% 0% 25% 0%;
-    box-shadow: 0 0 10px 10px #00000048;
+    box-shadow: 3px 0 10px 5px rgba(0, 0, 0, 0.411);
 
 }
 
@@ -63,19 +63,20 @@ header {
 
 
 .dataviz {
+   
     font-family: "Paris2024";
-    font-size: 11rem;
+    font-size: 12rem;
     color: #FFFFFF;
     text-align: left;
     padding-left: 50px;
     text-shadow: black 0px 0px 10px 15px;
-    padding-top: 100px;
+    margin-top: 150px;
     line-height: 9rem;
+    margin-left: 100px;
 
 }
 
-
-
+ 
 .bloc_fact {
     display: flex;
     justify-content: center;
@@ -133,6 +134,34 @@ header {
     text-align: center;
 }
 
+
+
+#explication {
+     
+    font-family: "Paris2024";
+    padding: 100px 120px;
+    margin: 30px auto;
+    width: 100%;
+    box-shadow: 15px 0 10px 5px #9292921f;
+    background-color: white;
+    display: flex;
+    justify-content: left;
+    gap: 3rem;
+ 
+   
+}
+
+.logo2 {
+    width: 170px;
+    margin-right: 150px;
+}
+.line {
+    border-left: solid black 1px;
+}
+.exp {
+    width: 300px;
+}
+
 #section-counter {
     min-height: 800px;
     font-family: "Paris2024";
@@ -142,7 +171,7 @@ header {
     justify-content: space-between;
     position: relative;
     margin: 50px 0;
-    box-shadow: 15px 0 10px 10px #92929248;
+    box-shadow: 15px 0 10px 5px #92929248;
     background-color: white;
     padding-right: 0 !important;
 }
@@ -242,7 +271,7 @@ header {
 #section1-wrapp {
     position: relative;
     width: 100%;
-    box-shadow: 15px 0 10px 10px #92929248;
+    box-shadow: 15px 0 10px 5px #92929248;
     border-radius: 0 0 25% 0;
     overflow: hidden;
     font-family: "paris2024";
@@ -373,7 +402,7 @@ input[type="range"] {
 #section3-wrapp{
     margin: 20px 0;
     width: 100%;
-    box-shadow: 15px 0 10px 10px #92929248;
+    box-shadow: 15px 0 10px 5px #92929248;
     border-radius:25% 0 0  0;
     padding-top: 120px;
     padding-left: 50px;
@@ -488,7 +517,7 @@ font-style: normal;
     border-radius: 0% 30%  0%  0%;
     overflow: hidden;
     margin-bottom: 50px 0;
-    box-shadow: 15px 0 10px 10px #92929248;
+    box-shadow: 15px 0 10px 5px #92929248;
 
 }
 
@@ -543,7 +572,7 @@ left: 30%;
     border-radius: 0%  0% 30% 0%;
     overflow: hidden;
     margin: 50px 0;
-    box-shadow: 15px 0 10px 10px #92929248;
+    box-shadow: 15px 0 10px 5px #92929248;
  
 
 }
@@ -558,29 +587,236 @@ left: 30%;
     display: inline-block;
 }
 
-#section-champions p, #chart {
+#section-champions p 
+ {
+    margin-left: 100px;
+    margin-top: 20px;
  
 }
 
 #top-athlets { 
-    border: solid green;
-       /* list-style: none; */
-       margin: 100px 0;
-       margin: 20px 100px;
+    
+               margin: 50px 100px;
+               margin-left: 10vw;
+
        
 }
 
 #top-athlets a {
     text-decoration: none;
-    color: #202020;
+    color: rgb(41, 34, 34);
     
 }
 
-.sportsman {
-    border: #423824 solid;
-    border-radius: 0 10px 10px 0;
+#top-athlets span {
+    font-size: 1.8rem;
+}
+
+
+
+.sportsman { 
+    border-radius:   30px;
     height: 4rem;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+    padding-left: 20px;
+    /* background: linear-gradient(to right, #ffffff, #17f0c105); */
+    margin-left: 80px;
+    transition:  all ease 1s;
+     
+ 
     
 }
+
+.circle-total {
+    padding-left: 10%;
+    opacity: 0;
+    transition: all 1s ease;
+}
+
+.sportsman:hover .circle-total {
+    opacity: 1;
+}
+
+.sportsman:hover {
+    background: linear-gradient(to left, #bfe0de00, #4e776fb4);
+    transition:  ease 1s;
+}
+#top-athlets li:nth-child(1) .sportsman{
+    background: linear-gradient(to left, #967a3e00, #d6c16098); ;
+    margin-left: 5px;
+    color: black;
+    color: #855e11;
+    
+}
+
+#top-athlets li:nth-child(1):hover .sportsman{
+    background: linear-gradient(to right, #967a3e, #d6c16098);
+    transition: all ease-in 1s;
+}
+
+#top-athlets li:nth-child(2) .sportsman{
+    background: linear-gradient(to left, #61616100, #b9b8b893); ;
+    margin-left: 30px;
+}
+
+
+#top-athlets li:nth-child(2):hover .sportsman{
+    background: linear-gradient(to right, #616161d5, #b9b8b893);
+    transition: all ease-in 1s;
+}
+
+#top-athlets li:nth-child(3) .sportsman{
+    background: linear-gradient(to left, #70331700, #a8592b94);
+    margin-left: 55px;
+}
+#top-athlets li:nth-child(3):hover .sportsman{
+    background: linear-gradient(to right, #703317b9, #a8592b94);
+    margin-left: 55px;
+}
+
+#top-athlets li:nth-child(1) .sportsman span{
+    font-size: 2.5rem;
  
+}
+
+#top-athlets li:nth-child(2) .sportsman span{
+    font-size: 2.3rem;
+ 
+}
+#top-athlets li:nth-child(3) .sportsman span{
+    font-size: 2rem;
+ 
+}
+ 
+.circle-gold {
+    background-color: #e4c355;
+    
+     color: rgb(59, 49, 31);
+  
+}
+.circle-silver {
+    background-color: #c7c7c5;
+    color: rgb(61, 61, 61);
+
+    
+ 
+  
+}
+  
+    
+.circle-bronze {
+    background-color: #d88c68;
+    color: rgb(59, 49, 31);
+   
+  
+}
+
+.circle-bronze, .circle-gold, .circle-silver {
+    border-radius: 50%;
+   display: inline-block;
+ width: 40px;
+ height: 40px;
+
+   text-align: center;
+   padding-top: 5px;
+     font-size: 1.4rem !important;
+     
+}
+
+footer {
+    font-family: "Paris2024";
+    border-radius: 0% 30% 0% 0%;
+    overflow: hidden;
+    box-shadow: 15px 0 10px 5px #92929248;
+    background-color: white;
+    padding-left: 100px;
+    padding-right: 150px;
+}
+
+footer h1{
+    margin: 35px;
+}
+
+footer p {
+    margin-left: 100px;
+    margin-bottom: 50px;
+}
+
+footer span {
+    font-size: 0.9rem;
+    margin: 30px auto;
+    display: block;
+    width: 100%;
+    text-align: center;
+  
+}
+
+#winner-countries{
+background-color: white;
+margin-bottom: 30px;
+box-shadow: 15px 0 10px 5px #92929248;
+font-family: "paris2024";
+}
+#countries-top-medals {
+     
+    background-color: white;
+    display: flex;
+    margin: 50px auto;
+    justify-content: center;
+    align-items: end;
+    gap: 5px;
+}
+
+#countries-top-medals .countrybarre:nth-child(1){
+    order: 1;
+    border: red solid;
+
+}
+
+#countries-top-medals .countrybarre:nth-child(2){
+    order: 0;
+ 
+}
+
+#countries-top-medals .countrybarre:nth-child(3){
+    order: 2;
+ }
+
+#countries-top-medals .countrybarre:nth-child(4){
+    order: 2;
+   
+}
+#countries-top-medals .countrybarre:nth-child(5){
+    order: 2;
+   
+}
+.countrybarre {
+    background-color: #eaf7f0;
+}
+
+.wrapp-podium {
+    display: flex;
+    flex-wrap: wrap-reverse;
+}
+
+.explication-points {
+max-width: 300px;
+}
+
+.place {
+    font-size: 5rem;
+    position: relative;
+    display: block;
+    text-align: center;
+    font-weight: 900; 
+}
+
+#countries-top-medals .countrybarre:nth-child(4) .place  { 
+    font-size: 3rem;
+ }
+ #countries-top-medals .countrybarre:nth-child(5) .place  { 
+    font-size: 2rem;
+ }

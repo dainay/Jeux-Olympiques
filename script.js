@@ -86,6 +86,64 @@ d3.csv('main_data.csv').then(function (data) {
   }, 1)
 })
 
+
+
+//dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+//to county all medals by country
+
+d3.csv('main_data.csv').then(function(data) {
+  const countries = {};
+
+  data.forEach(function(d) {
+    const country = d.team;
+    const medal = d.Medal;
+    if (!countries[country]) {
+      countries[country] = {
+        totalMedals: 0,
+        goldMedals: 0,
+        silverMedals: 0,
+        bronzeMedals: 0,
+        points: 0,
+      };
+    }
+    countries[country].totalMedals++;
+    if (medal === "GOLD") {
+      countries[country].goldMedals++;
+    } else if (medal === "SILVER") {
+      countries[country].silverMedals++;
+    } else if (medal === "BRONZE") {
+      countries[country].bronzeMedals++;
+    }
+    // Calculate points based on medals
+    countries[country].points =
+      countries[country].goldMedals * 3 +
+      countries[country].silverMedals * 2 +
+      countries[country].bronzeMedals;
+  });
+
+  const sortedCountries = Object.entries(countries)
+    .sort((a, b) => b[1].points - a[1].points)
+    .slice(0, 5);
+
+  // Select the existing #countries-top-medals section
+  const countriesTopMedals = d3.select('#countries-top-medals');
+
+  // Append divs for the top 5 countries with class based on index (0 for the first, 1 for the second, and so on)
+  d3.select('#countries-top-medals')
+  .selectAll('div')
+  .data(sortedCountries)
+  .enter()
+  .append('div')
+  .attr('class', (d, i) => `country${i} countrybarre`)
+  .style('width', '180px')
+  .style('height', (d, i) => `${(6-i) * 65}px`)
+  .style('border-radius', '5px 5px 0 0')
+  .html((d, i) => {
+    return ` <span class="place">${i+1}</span> <span class="topcon">${d[0]}</span> <span class="toppoints">${d[1].points} points</span> <span class="totalmedalstop">${d[1].totalMedals} medals</span>  <div class='medalsoftop'><span class="topgold">${d[1].goldMedals} gold</span> <span class="topsilver">${d[1].silverMedals} silver</span> <span class="topbronze">${d[1].bronzeMedals} bronze</span></div>`;
+  })
+  .style('color', 'black');
+});
+
 //ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 
 var medalCountByYear = {}
@@ -203,8 +261,18 @@ d3.csv('main_data.csv').then(function (data) {
       d3.select('#section1')
         .selectAll('.barre')
         .data(sortedData)
-        .join('div')
-        .attr('class', 'barre')
+        .join(
+          enter =>
+            enter
+              .append('div')
+              .attr('class', 'barre')
+              .append('div')
+              .attr('class', 'label'),
+          update => update,
+          exit => exit.remove()
+        )
+      d3.selectAll('.barre')
+        .data(sortedData)
         .transition()
         .style('width', d => {
           const medals = d[1][selectedYear]?.medals ?? 0
@@ -216,7 +284,15 @@ d3.csv('main_data.csv').then(function (data) {
         .style('height', '60px')
         .style('margin', '3px 0px')
         .style('border-radius', '0 25px 25px 0')
-        
+        .style('position', 'relative')
+
+      // .style('padding', '17px  0 0 10px')
+      d3.select('#section1')
+        .selectAll('.label')
+
+        .data(sortedData)
+        .transition()
+        .style('position', 'absolute')
         .text(d => {
           let name = d[0]
           if (
@@ -237,33 +313,63 @@ d3.csv('main_data.csv').then(function (data) {
           if (name === 'German Democratic Republic (Germany)') {
             name = 'GDR (Germany)'
           }
+          if (name === 'Federal Republic of Germany') {
+            name = 'FRG (Germany)'
+          }
+          if (name === 'Republic of Korea') {
+            name = 'South Korea'
+          }
+
+    
 
           return name + ', ' + d[1][selectedYear].medals + ' medals'
         })
-        .style('padding', '17px  0 0 10px')
-  
+
+        .style('top', '14px')
         .style('color', d => {
           const qty = d[1][selectedYear].medals
-          if (qty < 18) {
-            return 'black'
-          } else {
-            return 'white'
+
+          if (innerWidth < 1300) {
+            if (qty < 40) {
+              return `black`
+            } else {
+              return `white`
+            }
+          }
+          if (innerWidth >= 1300) {
+            {
+              if (qty < 25) {
+                return `black`
+              }
+
+              return 'white'
+            }
           }
         })
-
-          .style('padding-left', d => {
+        .style('text-align', 'left')
+        .style('left', d => {
           const qty = d[1][selectedYear].medals
+          console.log(qty, parent.innerWidth)
+          if (innerWidth < 1300) {
+            if (qty < 40) {
+              return `${(parent.innerWidth * qty) / 170}px`
+            } else {
+              return '12px'
+            }
+          }
+          if (innerWidth >= 1300) {
+            {
+              if (qty < 25) {
+                return `${(parent.innerWidth * qty) / 170}px`
+              }
 
-          if (qty < 18) {
-            return `${11 * qty}px`
-          } else {
-            return '10px'
+              return '12px'
+            }
           }
         })
-    
-        
+
         .style('white-space', 'nowrap')
-        
+
       // .text(d => )
     }
   }
@@ -272,7 +378,6 @@ d3.csv('main_data.csv').then(function (data) {
 // SECTION 2 dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 
 var bronzeSilverGold = {} // Iable who has all data about medals of last olympic game and chosen teams
-
 
 var allowedTeams = [
   //places of last olympic games
@@ -366,23 +471,23 @@ d3.csv('main_data.csv').then(function (data) {
       return d === 'Greece'
     })
 
-    //to make graph responsive
-    let newWidth = window.innerWidth;
+  //to make graph responsive
+  let newWidth = window.innerWidth
 
-    d3.select(window).on('resize', () => {
-      // Get the new width of the browser window
-      const newSize = window.innerWidth;
-    
-      if (newSize < 1024) {
-        newWidth = 1024;
-      } else {
-        newWidth = newSize;
-      }
-    
-      console.log(newWidth, 'newWidth');
-      // You can call your updateStreamgraph() function here with the updated width.
-      updateStreamgraph();
-    });
+  d3.select(window).on('resize', () => {
+    // Get the new width of the browser window
+    const newSize = window.innerWidth
+
+    if (newSize < 1024) {
+      newWidth = 1024
+    } else {
+      newWidth = newSize
+    }
+
+    console.log(newWidth, 'newWidth')
+ 
+    updateStreamgraph()
+  })
 
   function updateStreamgraph () {
     var selectedTeam = d3.select('#selectedTeam').property('value')
@@ -407,14 +512,11 @@ d3.csv('main_data.csv').then(function (data) {
         Gold: medals.Gold
       })
     )
- 
-    
-    
 
     var svg = d3
       .select('#section3')
       .append('svg')
-      .attr('width', newWidth+100)
+      .attr('width', newWidth + 100)
       .attr('height', 470)
 
     var yScale = d3
@@ -425,7 +527,7 @@ d3.csv('main_data.csv').then(function (data) {
     var xScale = d3
       .scaleBand()
       .domain(data.map(d => d.year))
-      .range([newWidth/22.5-1, newWidth-100])
+      .range([newWidth / 22.5 - 1, newWidth - 100])
       .padding(1)
 
     var colorScale = d3
@@ -474,8 +576,11 @@ d3.csv('main_data.csv').then(function (data) {
       .attr('fill', colorScale('Gold'))
 
     var xAxis = d3.axisBottom(xScale)
-    svg.append('g').attr('transform', 'translate(0, 400)').call(xAxis)
-    .attr('stroke-width', 1) 
+    svg
+      .append('g')
+      .attr('transform', 'translate(0, 400)')
+      .call(xAxis)
+      .attr('stroke-width', 1)
 
     var yAxis = d3.axisLeft(yScale)
     svg.append('g').attr('transform', 'translate(65, 0)').call(yAxis)
@@ -483,48 +588,121 @@ d3.csv('main_data.csv').then(function (data) {
     console.log('Updated streamgraph for team: ' + selectedTeam)
 
     const gamesByCountry = {
-      'Norway': [
-        { year: 1994, city: 'Lillehammer', season: 'Winter', fact: "The Lillehammer Winter Olympics were held just two years after the end of the Cold War and the dissolution of the Soviet Union. It was the first Winter Olympics since the 1980 Lake Placid Games to take place without a boycott or major international political conflict, signifying a more peaceful era for international sporting events." }
+      Norway: [
+        {
+          year: 1994,
+          city: 'Lillehammer',
+          season: 'Winter',
+          fact: 'The Lillehammer Winter Olympics were held just two years after the end of the Cold War and the dissolution of the Soviet Union. It was the first Winter Olympics since the 1980 Lake Placid Games to take place without a boycott or major international political conflict, signifying a more peaceful era for international sporting events.'
+        }
       ],
       'United States of America': [
-        { year: 1996, city: 'Atlanta', season: 'Summer', fact: "The 1996 Olympics marked the centennial celebration of the modern Olympic Games, as the first modern Olympics were held in Athens in 1896. The Atlanta Games were seen as a tribute to the origins of the Olympic movement. For the first time in Olympic history, all 197 of the National Olympic Committees (NOC) were represented at the Olympics. That same year, Italian archer Paola Fantato became the first athlete to compete in the Olympic and Paralympic Games in the same year." },
-        { year: 2002, city: 'Salt Lake City', season: 'Winter', fact: "Due to concerns about the reliability of natural snow in the region, the Salt Lake City Olympics used extensive snowmaking and grooming equipment to ensure suitable conditions for the events. It was one of the early instances of such extensive snowmaking efforts in Olympic history. After 2002 the Olympic Charter added a new idea: legacy. It means the Olympics should not just be a sports event, but also help cities grow and benefit society. Now, cities wanting to host the Olympics need a long-term plan to be chosen by the International Olympic Committee." }
+        {
+          year: 1996,
+          city: 'Atlanta',
+          season: 'Summer',
+          fact: 'The 1996 Olympics marked the centennial celebration of the modern Olympic Games, as the first modern Olympics were held in Athens in 1896. The Atlanta Games were seen as a tribute to the origins of the Olympic movement. For the first time in Olympic history, all 197 of the National Olympic Committees (NOC) were represented at the Olympics. That same year, Italian archer Paola Fantato became the first athlete to compete in the Olympic and Paralympic Games in the same year.'
+        },
+        {
+          year: 2002,
+          city: 'Salt Lake City',
+          season: 'Winter',
+          fact: 'Due to concerns about the reliability of natural snow in the region, the Salt Lake City Olympics used extensive snowmaking and grooming equipment to ensure suitable conditions for the events. It was one of the early instances of such extensive snowmaking efforts in Olympic history. After 2002 the Olympic Charter added a new idea: legacy. It means the Olympics should not just be a sports event, but also help cities grow and benefit society. Now, cities wanting to host the Olympics need a long-term plan to be chosen by the International Olympic Committee.'
+        }
       ],
-      'Japan': [
-        { year: 1998, city: 'Nagano', season: 'Winter', fact: "Snowboarding made its debut as an official Olympic sport at the Nagano Games. The inclusion of snowboarding represented a significant step toward embracing more modern and youth-oriented sports in the Olympic program." },
-        { year: 2020, city: 'Tokyo', season: 'Summer', fact: "The 2020 Tokyo Olympics marked the first time in Olympic history that the Games were postponed. They were rescheduled to 2021 due to the global COVID-19 pandemic. To mitigate the spread of COVID-19, the Tokyo Olympics were held with minimal spectators. Most events took place in empty arenas, and fan attendance was limited. The medals for the Olympic Games are made from recycled materials." }
+      Japan: [
+        {
+          year: 1998,
+          city: 'Nagano',
+          season: 'Winter',
+          fact: 'Snowboarding made its debut as an official Olympic sport at the Nagano Games. The inclusion of snowboarding represented a significant step toward embracing more modern and youth-oriented sports in the Olympic program.'
+        },
+        {
+          year: 2020,
+          city: 'Tokyo',
+          season: 'Summer',
+          fact: 'The 2020 Tokyo Olympics marked the first time in Olympic history that the Games were postponed. They were rescheduled to 2021 due to the global COVID-19 pandemic. To mitigate the spread of COVID-19, the Tokyo Olympics were held with minimal spectators. Most events took place in empty arenas, and fan attendance was limited. The medals for the Olympic Games are made from recycled materials.'
+        }
       ],
-      'Australia': [
-        { year: 2000, city: 'Sydney', season: 'Summer', fact: "At the Olympic Games in Sydney, North and South Korea marched together under the same flag at the opening ceremony. This was an unprecedented symbol of peace since diplomatic relations between the two states had ended after the Korean War of 1950 to 1953. The 2000 Olympics saw numerous world records and memorable athletic performances, including American swimmer Michael Phelps' debut at the age of 15." }
+      Australia: [
+        {
+          year: 2000,
+          city: 'Sydney',
+          season: 'Summer',
+          fact: "At the Olympic Games in Sydney, North and South Korea marched together under the same flag at the opening ceremony. This was an unprecedented symbol of peace since diplomatic relations between the two states had ended after the Korean War of 1950 to 1953. The 2000 Olympics saw numerous world records and memorable athletic performances, including American swimmer Michael Phelps' debut at the age of 15."
+        }
       ],
-      'Greece': [
-        { year: 2004, city: 'Athens', season: 'Summer', fact: "The Iraqi football team stunned at the Games in Athens. Despite the war ravaging their country, the team reached the semi‑finals of the tournament, offering a brief distraction for Iraqis and the entire world from their country’s dramatic situation. That same year was the first time that the Olympic torch relay, after leaving Olympia, crossed every habitable continent before returning to Greece." }
+      Greece: [
+        {
+          year: 2004,
+          city: 'Athens',
+          season: 'Summer',
+          fact: 'The Iraqi football team stunned at the Games in Athens. Despite the war ravaging their country, the team reached the semi‑finals of the tournament, offering a brief distraction for Iraqis and the entire world from their country’s dramatic situation. That same year was the first time that the Olympic torch relay, after leaving Olympia, crossed every habitable continent before returning to Greece.'
+        }
       ],
-      'Italy': [
-        { year: 2006, city: 'Turin', season: 'Winter', fact: "In a symbolic gesture of peace, North and South Korea marched together under a unified flag during the Opening Ceremony. They also fielded a unified women's ice hockey team, marking a rare moment of cooperation between the two countries. 39-year-old skeleton racer Duff Gibson became the oldest athlete in the history of the Winter Games to win gold in an individual sport." }
+      Italy: [
+        {
+          year: 2006,
+          city: 'Turin',
+          season: 'Winter',
+          fact: "In a symbolic gesture of peace, North and South Korea marched together under a unified flag during the Opening Ceremony. They also fielded a unified women's ice hockey team, marking a rare moment of cooperation between the two countries. 39-year-old skeleton racer Duff Gibson became the oldest athlete in the history of the Winter Games to win gold in an individual sport."
+        }
       ],
       "People's Republic of China": [
-        { year: 2008, city: 'Beijing', season: 'Summer', fact: "Jamaican sprinter Usain Bolt made a historic mark in athletics by setting world records in the 100m and 200m sprints. His performances were not only record-breaking but also charismatic, making him a global sports superstar. For the first time, all the snow used for the Olympics will be artificial. American swimmer Michael Phelps had a remarkable Games, winning eight gold medals in swimming, breaking Mark Spitz's record of seven golds in a single Olympics." },
-        { year: 2022, city: 'Beijing', season: 'Winter', fact: "The 2022 Winter Olympics were the most gender-balanced Winter Olympics in history, with 45.44% of athletes being female. The 2022 Winter Olympics were also notable for the use of technology. For example, the Games used artificial intelligence to help with judging and to provide real-time data to athletes and coaches. The 2022 Winter Olympics were also the first Winter Olympics to feature a dedicated esports competition. The competition was held in the lead-up to the Games and featured athletes from around the world competing in the popular winter sports video game Snowboarding the Next Phase." }
+        {
+          year: 2008,
+          city: 'Beijing',
+          season: 'Summer',
+          fact: "Jamaican sprinter Usain Bolt made a historic mark in athletics by setting world records in the 100m and 200m sprints. His performances were not only record-breaking but also charismatic, making him a global sports superstar. For the first time, all the snow used for the Olympics will be artificial. American swimmer Michael Phelps had a remarkable Games, winning eight gold medals in swimming, breaking Mark Spitz's record of seven golds in a single Olympics."
+        },
+        {
+          year: 2022,
+          city: 'Beijing',
+          season: 'Winter',
+          fact: 'The 2022 Winter Olympics were the most gender-balanced Winter Olympics in history, with 45.44% of athletes being female. The 2022 Winter Olympics were also notable for the use of technology. For example, the Games used artificial intelligence to help with judging and to provide real-time data to athletes and coaches. The 2022 Winter Olympics were also the first Winter Olympics to feature a dedicated esports competition. The competition was held in the lead-up to the Games and featured athletes from around the world competing in the popular winter sports video game Snowboarding the Next Phase.'
+        }
       ],
-      'Canada': [
-        { year: 2010, city: 'Vancouver', season: 'Winter', fact: "The first summer version of the Youth Olympic Games took place in 2010, with the first winter version taking place in 2012 — proof of the Olympic movement’s strong commitment to youth and education." }
+      Canada: [
+        {
+          year: 2010,
+          city: 'Vancouver',
+          season: 'Winter',
+          fact: 'The first summer version of the Youth Olympic Games took place in 2010, with the first winter version taking place in 2012 — proof of the Olympic movement’s strong commitment to youth and education.'
+        }
       ],
       'Great Britain': [
-        { year: 2012, city: 'London', season: 'Summer', fact: "The medals of the London Games became the largest in history, with a diameter of about 85 millimeters, a thickness of 7 millimeters, and each weighing approximately 375 to 400 grams. The Olympic Stadium in London has a capacity of 80,000 seats and is the lightest stadium in Olympic history. It used around 10,000 tons of steel in its construction, making it 75% lighter than the Olympic Stadium in Beijing. The 2012 Olympics marked the introduction of women's boxing as an official Olympic sport. Female boxers from various countries competed in the inaugural tournament." }
+        {
+          year: 2012,
+          city: 'London',
+          season: 'Summer',
+          fact: "The medals of the London Games became the largest in history, with a diameter of about 85 millimeters, a thickness of 7 millimeters, and each weighing approximately 375 to 400 grams. The Olympic Stadium in London has a capacity of 80,000 seats and is the lightest stadium in Olympic history. It used around 10,000 tons of steel in its construction, making it 75% lighter than the Olympic Stadium in Beijing. The 2012 Olympics marked the introduction of women's boxing as an official Olympic sport. Female boxers from various countries competed in the inaugural tournament."
+        }
       ],
-      'Russia': [
-         
-        { year: 2014, city: 'Sochi', season: 'Winter', fact: "Several events made their Olympic debut in Sochi, including women's ski jumping, team figure skating, and snowboard slopestyle. These additions reflected the evolving nature of the Winter Olympics. For the Winter Olympics in Sochi, a record number of medals in the history of winter sports competitions was produced, specifically 1,300 medals." }
+      Russia: [
+        {
+          year: 2014,
+          city: 'Sochi',
+          season: 'Winter',
+          fact: "Several events made their Olympic debut in Sochi, including women's ski jumping, team figure skating, and snowboard slopestyle. These additions reflected the evolving nature of the Winter Olympics. For the Winter Olympics in Sochi, a record number of medals in the history of winter sports competitions was produced, specifically 1,300 medals."
+        }
       ],
-      'Brazil': [
-        { year: 2016, city: 'Rio', season: 'Summer', fact: "The 2016 Rio Olympics were the first-ever Olympic Games to be hosted in South America. Golf returned to the Olympic Games after a 112-year hiatus. The International Olympic Committee decided to reintroduce this sport, which had last been contested in 1900 and 1904." }
+      Brazil: [
+        {
+          year: 2016,
+          city: 'Rio',
+          season: 'Summer',
+          fact: 'The 2016 Rio Olympics were the first-ever Olympic Games to be hosted in South America. Golf returned to the Olympic Games after a 112-year hiatus. The International Olympic Committee decided to reintroduce this sport, which had last been contested in 1900 and 1904.'
+        }
       ],
       'Republic of Korea': [
-        { year: 2018, city: 'PyeongChang', season: 'Winter', fact: "A record 92 countries participated in the Winter Olympics, demonstrating the global appeal and inclusivity of the event." }
+        {
+          year: 2018,
+          city: 'PyeongChang',
+          season: 'Winter',
+          fact: 'A record 92 countries participated in the Winter Olympics, demonstrating the global appeal and inclusivity of the event.'
+        }
       ]
-    };
-    
+    }
 
     var selectedTeam = d3.select('#selectedTeam').property('value')
 
@@ -536,72 +714,63 @@ d3.csv('main_data.csv').then(function (data) {
     }
 
     // Find the year for the selected team
-    let selectedGames = gamesByCountry[selectedTeam];
+    let selectedGames = gamesByCountry[selectedTeam]
 
     // Check if a matching game is found
-        
+
     if (selectedGames) {
-      var content = ''; // Initialize the content variable outside the loop
-    
+      var content = '' // Initialize the content variable outside the loop
+
       selectedGames.forEach(game => {
         // Use game.year, game.city, etc., for each game
-        var selectedYear = game.year;
-        var selectedCity = game.city;
-        var selectedSeason = game.season;
-        var selectedFact = game.fact;
+        var selectedYear = game.year
+        var selectedCity = game.city
+        var selectedSeason = game.season
+        var selectedFact = game.fact
 
         content += `
         <p><span id="host-country">${selectedTeam}</span> hosted ${selectedSeason} Olympic Games in ${selectedCity} in <span id="year-host">${selectedYear} </span> </p> <br<br><div class="fact"> <p>${selectedFact}</p></div>
-      `;
- 
-   
-      // Append the new div with the content
-  //     d3.select('#host').append('div').html(`
-  //   <p><span id="host-country">${selectedTeam}</span> hosted ${selectedSeason} Olympic Games in ${selectedCity} in <span id="year-host">${selectedYear}</span> </p> <div class="fact"> <p>${selectedFact}</p></div>
-  // `)
+      `
 
-      console.log(
-        'Updated streamgraph for team: ' +
-          selectedTeam +
-          ' in year: ' +
-          selectedYear
-      )
-      var tickText = d3.selectAll('#section3 .tick text');
-      console.log(tickText, "texts");
-      
-      var selectedYears = selectedGames.map(game => game.year);
-      
-      tickText.each(function() {
-        var tickYear = parseInt(d3.select(this).text()); // Parse the text content as an integer
-        if (selectedYears.includes(tickYear)) {
-          // Apply your condition if the tick year matches any of the selected years
-          d3.select(this)
-            .attr('font-size', '1.2rem')
-            .attr('font-weight', '700')
-            .attr("transform", 'translate(0,10)');
-        } else {
-          // Apply a different style or condition for non-matching years
-          d3.select(this)
-            .attr('font-size', '.7rem')
-            .attr('font-weight', 'normal');
-        }
-      });
-      
+        // Append the new div with the content
+        //     d3.select('#host').append('div').html(`
+        //   <p><span id="host-country">${selectedTeam}</span> hosted ${selectedSeason} Olympic Games in ${selectedCity} in <span id="year-host">${selectedYear}</span> </p> <div class="fact"> <p>${selectedFact}</p></div>
+        // `)
 
-    
-    
-  });
+        console.log(
+          'Updated streamgraph for team: ' +
+            selectedTeam +
+            ' in year: ' +
+            selectedYear
+        )
+        var tickText = d3.selectAll('#section3 .tick text')
+        console.log(tickText, 'texts')
 
+        var selectedYears = selectedGames.map(game => game.year)
 
-  // Remove existing content inside the "host" element
-  d3.select('#host').html('');
+        tickText.each(function () {
+          var tickYear = parseInt(d3.select(this).text()) // Parse the text content as an integer
+          if (selectedYears.includes(tickYear)) {
+            // Apply your condition if the tick year matches any of the selected years
+            d3.select(this)
+              .attr('font-size', '1.2rem')
+              .attr('font-weight', '700')
+              .attr('transform', 'translate(0,10)')
+          } else {
+            // Apply a different style or condition for non-matching years
+            d3.select(this)
+              .attr('font-size', '.7rem')
+              .attr('font-weight', 'normal')
+          }
+        })
+      })
 
-  // Set the accumulated content after the loop is complete
-  d3.select('#host').html(content);
-}
+      // Remove existing content inside the "host" element
+      d3.select('#host').html('')
 
-
-
+      // Set the accumulated content after the loop is complete
+      d3.select('#host').html(content)
+    }
   }
 
   // Initial update to show the streamgraph for the default selected team
@@ -610,108 +779,124 @@ d3.csv('main_data.csv').then(function (data) {
   // Add an event listener to the select element
   d3.select('#selectedTeam').on('change', updateStreamgraph)
 
- 
 })
 
-
 //dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
- 
-       
-fetch("hosting.json")
+
+fetch('hosting.json')
   .then(response => response.json())
   .then(data => {
     // Count the occurrences of each country
-    var locationCount = {};
+    var locationCount = {}
     data.forEach(function (d) {
       if (locationCount[d.game_location]) {
-        locationCount[d.game_location]++;
+        locationCount[d.game_location]++
       } else {
-        locationCount[d.game_location] = 1;
+        locationCount[d.game_location] = 1
       }
-    });
+    })
 
     //   top 5 countries
     var topLocations = Object.entries(locationCount)
       .sort((a, b) => b[1] - a[1])
-      .slice(0, 10);
-console.log(topLocations);
+      .slice(0, 10)
+    console.log(topLocations)
 
     // Create the bar chart
-    var chart = d3.select("#chart");
+    var chart = d3.select('#chart')
 
-    chart.selectAll("div.bar")
+    chart
+      .selectAll('div.bar')
       .data(topLocations)
       .enter()
-      .append("div")
-      .attr("class", "bar")
-      .style("width","11%")
-      .style("height", d => `${d[1] * 60}px`)
+      .append('div')
+      .attr('class', 'bar')
+      .style('width', '11%')
+      .style('height', d => `${d[1] * 60}px`)
       .style('background', d => {
         return 'linear-gradient(to top, #6d494a, #bb4545)'
       })
       .style('padding', '5px')
       .style('margin', '1px')
-      .style('border-radius', ' 5px 5px 0 0' )
-     .html(d => `<div class="inscr"><span class="country">${d[0]}</span> <span class="count">${d[1]}</span></div>`); 
- 
-    chart.selectAll("div.bar")
-      .style("background-color", "red")
-      .style("color", "white")
-      .style("margin-bottom", "5px");
-  });
+      .style('border-radius', ' 5px 5px 0 0')
+      .html(
+        d =>
+          `<div class="inscr"><span class="country">${d[0]}</span> <span class="count">${d[1]}</span></div>`
+      )
 
+    chart
+      .selectAll('div.bar')
+      .style('background-color', 'red')
+      .style('color', 'white')
+      .style('margin-bottom', '5px')
+  })
 
-  //dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+//dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 
-  d3.csv('main_data.csv').then(function(data) {
-    var athleteMedals = {};
-  
-    data.forEach(function(d) {
-      var athlete = d.athlete;
-      var sport = d.discipline_title;
-      var medal = d.Medal;
-      var country = d.team;
-      var url = d.athlete_url;
-  
-      if (athlete) {
-        if (!athleteMedals[athlete]) {
-          athleteMedals[athlete] = {
-            total: 0,
-            sports: {},
-            goldMedals: 0,
-            silverMedals: 0,
-            bronzeMedals: 0,
-            countries: {},
-            url: url, // Store the URL for the athlete
-          };
+d3.csv('main_data.csv').then(function (data) {
+  var athleteMedals = {}
+
+  data.forEach(function (d) {
+    var athlete = d.athlete
+    var sport = d.discipline_title
+    var medal = d.Medal
+    var country = d.team
+    var url = d.athlete_url
+
+    if (athlete) {
+      if (!athleteMedals[athlete]) {
+        athleteMedals[athlete] = {
+          total: 0,
+          sports: {},
+          goldMedals: 0,
+          silverMedals: 0,
+          bronzeMedals: 0,
+          countries: {},
+          url: url // Store the URL for the athlete
         }
-        athleteMedals[athlete].total++;
-        athleteMedals[athlete].sports[sport] = (athleteMedals[athlete].sports[sport] || 0) + 1;
-        if (medal === "GOLD") {
-          athleteMedals[athlete].goldMedals++;
-        } else if (medal === "SILVER") {
-          athleteMedals[athlete].silverMedals++;
-        } else if (medal === "BRONZE") {
-          athleteMedals[athlete].bronzeMedals++;
-        }
-        athleteMedals[athlete].countries[country] = (athleteMedals[athlete].countries[country] || 0) + 1;
       }
-    });
-  
-    var topAthletes = Object.keys(athleteMedals).sort(function(a, b) {
-      return athleteMedals[b].total - athleteMedals[a].total;
-    }).slice(0, 10);
-  
-    topAthletes.forEach(function(athlete) {
-      d3.select("#top-athlets")
-        .append("li")
-        .html(
-          `<div class="sportsman"><a href="${athleteMedals[athlete].url}">${athlete} from ${
-            Object.keys(athleteMedals[athlete].countries).join(", ")
-          } won ${athleteMedals[athlete].total} medals (${athleteMedals[athlete].goldMedals} gold, ${
-            athleteMedals[athlete].silverMedals
-          } silver, ${athleteMedals[athlete].bronzeMedals} bronze.)</a></div>`
-        );
-    });
-  });
-  
+      athleteMedals[athlete].total++
+      athleteMedals[athlete].sports[sport] =
+        (athleteMedals[athlete].sports[sport] || 0) + 1
+      if (medal === 'GOLD') {
+        athleteMedals[athlete].goldMedals++
+      } else if (medal === 'SILVER') {
+        athleteMedals[athlete].silverMedals++
+      } else if (medal === 'BRONZE') {
+        athleteMedals[athlete].bronzeMedals++
+      }
+      athleteMedals[athlete].countries[country] =
+        (athleteMedals[athlete].countries[country] || 0) + 1
+    }
+  })
+
+  var topAthletes = Object.keys(athleteMedals)
+    .sort(function (a, b) {
+      return athleteMedals[b].total - athleteMedals[a].total
+    })
+    .slice(0, 10)
+
+  topAthletes.forEach(function (athlete) {
+    d3.select('#top-athlets')
+      .append('li')
+      .html(
+        `<div class="sportsman">
+          <a href="${
+            athleteMedals[athlete].url
+          }"><span>${athlete}</span> from ${Object.keys(
+          athleteMedals[athlete].countries
+        ).join(', ')} won ${
+          athleteMedals[athlete].total
+        } medals </a> <div class="circle-total"> <span class="circle-gold">${
+          athleteMedals[athlete].goldMedals
+        }</span>   <span class="circle-silver">${
+          athleteMedals[athlete].silverMedals
+        } </span>   <span class="circle-bronze"> ${
+          athleteMedals[athlete].bronzeMedals
+        } </span></div>
+          </div>`
+      )
+  })
+})
+
+
