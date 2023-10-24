@@ -425,7 +425,7 @@ font-family: "Paris2024";
  
 
 select {
-    width: 1000px;
+    width: 60%;
     height: 70px;
     border-radius: 30px;
     border: none;
@@ -760,6 +760,16 @@ margin-bottom: 30px;
 box-shadow: 15px 0 10px 5px #92929248;
 font-family: "paris2024";
 }
+
+#winner-countries h2 {
+    font-size: 9rem;
+    line-height: 7rem;
+    padding: 50px 100px ;
+    background: -webkit-linear-gradient(left, #284224, #78d780);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    }
+
 #countries-top-medals {
      
     background-color: white;
@@ -772,8 +782,7 @@ font-family: "paris2024";
 
 #countries-top-medals .countrybarre:nth-child(1){
     order: 1;
-    border: red solid;
-
+    
 }
 
 #countries-top-medals .countrybarre:nth-child(2){
@@ -795,6 +804,7 @@ font-family: "paris2024";
 }
 .countrybarre {
     background-color: #eaf7f0;
+    position: relative;
 }
 
 .wrapp-podium {
@@ -816,7 +826,89 @@ max-width: 300px;
 
 #countries-top-medals .countrybarre:nth-child(4) .place  { 
     font-size: 3rem;
+    margin-bottom: 0;
  }
  #countries-top-medals .countrybarre:nth-child(5) .place  { 
     font-size: 2rem;
+    line-height: 2rem;
+ }
+
+ #countries-top-medals .countrybarre:nth-child(5) .topcon  { 
+    line-height: 1rem;
+ }
+
+ .topcon {
+    display: block;
+    text-align: center;
+    font-size: 1.5rem;
+ }
+
+ .toppoints {
+    display: block;
+    text-align: center;
+    font-size: 1rem;
+    font-style: italic;
+ }
+
+ .totalmedalstop {
+    display: block;
+    text-align: center;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    line-height: 1rem;
+    opacity: 1;
+ }
+
+ .medalsoftop {
+margin: auto;
+display: block;
+opacity: 0;
+position: absolute;
+width: 83%;
+bottom: 10px;
+left: 50%;
+transform: translate(-50%, 0);
+transition: all 1s ease;
+ }
+
+ .countrybarre:hover .medalsoftop {
+    opacity: 1;
+    transition: all 1s ease;
+ }
+
+ .countrybarre:hover .totalmedalstop {
+    opacity: 0;
+    transition: all 1s ease;
+ }
+
+ .topgold{
+  
+    background-color: #c29147 ;
+   
+    color: rgb(230, 226, 211);
+ }
+
+.topgold, .topsilver, .topbronze {
+    display: inline-block;
+
+ border-radius: 50%;
+ width: 45px;
+ aspect-ratio: 1;
+ text-align: center;
+ padding-top: 6.5%;
+ font-size: 1rem;
+}
+
+ .topsilver{
+   
+    background-color: #a7a7a7 ;
+    color: #e2e2e2;
+ }
+
+ .topbronze{
+    
+    background-color: #dd6b3d ;
+    color: #fce1db;
  }

@@ -139,7 +139,7 @@ d3.csv('main_data.csv').then(function(data) {
   .style('height', (d, i) => `${(6-i) * 65}px`)
   .style('border-radius', '5px 5px 0 0')
   .html((d, i) => {
-    return ` <span class="place">${i+1}</span> <span class="topcon">${d[0]}</span> <span class="toppoints">${d[1].points} points</span> <span class="totalmedalstop">${d[1].totalMedals} medals</span>  <div class='medalsoftop'><span class="topgold">${d[1].goldMedals} gold</span> <span class="topsilver">${d[1].silverMedals} silver</span> <span class="topbronze">${d[1].bronzeMedals} bronze</span></div>`;
+    return ` <span class="place">${i+1}</span> <span class="topcon">${d[0]}</span> <span class="toppoints">${d[1].points} points</span> <span class="totalmedalstop">${d[1].totalMedals} medals</span>  <div class='medalsoftop'><span class="topgold">${d[1].goldMedals} </span> <span class="topsilver">${d[1].silverMedals}</span> <span class="topbronze">${d[1].bronzeMedals} </span></div>`;
   })
   .style('color', 'black');
 });
