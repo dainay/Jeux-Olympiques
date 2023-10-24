@@ -129,8 +129,8 @@ g:nth-of-type(1) .tick:nth-child(4n-2) {
 
     <section id="section-counter">
         <div class="wrap-counter">
-            <h2>How many medals were won?</h2>
-            <p>During more than 100 years of olympic history a lot of medals were won</p>
+            <h2>History of Olympic Medals: A Grand Total</h2>
+            <p>Across a century of Olympic history, countless medals have been earned, reflecting the dedication and excellence of athletes from around the globe. But how many?</p>
             <div class="medals-counter">
                 <div class="box-medal total"> Total <br><span id="total"></span></div>
                 <div class="box-medal"> Gold <br><span id="gold"></span></div>
@@ -146,10 +146,12 @@ g:nth-of-type(1) .tick:nth-child(4n-2) {
 
 
     <section id="winner-countries">
-        <h2>Which country is the champion in medals</h2>
+        <h2>Olympic Leaders: <br> Top 5 Nations on the Podium</h2>
 <div class="wrapp-podium">
     <div id="countries-top-medals"></div>
-    <div class="explication-points"><p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit, ipsa? Similique corporis illo maxime consequuntur accusamus? Vero excepturi, similique, iure ex veritatis labore ipsam consectetur quo reiciendis ipsa veniam minus!</p></div>
+    <div class="explication-points"><p>The question of which country has achieved the greatest Olympic success is undoubtedly complex, influenced by numerous factors such as population size, economic resources, the level of investment in sports, climatic conditions, and even historical stability. It is evident that countries with a stable history and territorial integrity over the last century have a distinct advantage.
+<br><br>
+        In this graphic, we aim to provide a simplified representation of Olympic success, focusing solely on the quantity of medals and their respective characteristics. Our point system assigns <b>3 points to gold medals</b>, <b>2 points to silver</b>, and <b>1 point to bronze</b>. This approach allows for a straightforward comparison based on medal counts, although it may not capture the full scope of a nation's sporting achievements.</p></div>
 </div>
 
     </section>
@@ -164,15 +166,20 @@ g:nth-of-type(1) .tick:nth-child(4n-2) {
 
 
     <section id="section1-wrapp">
-        <h2>What was the best score during the years? <br></h2>
-        <p id="section1-p">Lorem ipsum dolor sit amet consectetur adipisicing elit. </p>
+        <h2>Year-by-Year: <br> Top 10 Medal Winners
+            <br></h2>
+        <p id="section1-p">
+            Olympic fortunes change rapidly, with varying countries rising to the top each year. By adjusting this scroll, you can navigate through different years to see the top ten nations that achieved the best results.
+            <br>
+            <br> You can also compare which years were more successful for world sport in general. The bars represent the medals earned by each country, relative to the maximum possible number of medals that were won by one country in a single year.
+        </p>
         <div id="bar-around">
             <div id="section1">
                 <input type="range" id="year" value="2000">
                 <div id="results"></div>
 
                 <div id="div-section1" style="display: none;">
-                    <p>AAAAAAAAAAAAAA</p>
+                  
                 </div>
             </div>
             <div id="years">
@@ -186,8 +193,10 @@ g:nth-of-type(1) .tick:nth-child(4n-2) {
 
 
     <section id="section3-wrapp">
-        <h2>Does the hosting country win more?</h2>
-<p class="sec3-p">Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt, quisquam! Neque, nemo molestiae amet eos ex corporis accusamus magni adipisci ut autem illum et vitae architecto perspiciatis vero debitis dolor?</p>
+        <h2>Olympic Advantages: <br> Do Host Countries Win More?</h2>
+<p class="sec3-p">The privilege of hosting the Olympic Games is both an honor and a responsibility.  The home-field advantage, the support of local fans,  familiarity with the venues...  Does hosting games come with a competitive advantage?
+    <br><br>This streamgraph represents the medals won by all host countries since 1994. This year serves as a reference point because, starting from 1994, the modern system of a four-year period was established. Prior to that, both the Summer and Winter Games were held in the same year. The decision to stagger these events was made to address the logistical challenges of hosting two major international sporting events in a single year. The years when the Winter Games occurred are marked in blue, while the Summer Games are denoted in red.
+</p>
 <br><br>
         <select name="selectedTeam" id="selectedTeam"></select>
         <!-- to choose the country -->
@@ -210,15 +219,15 @@ g:nth-of-type(1) .tick:nth-child(4n-2) {
 
 <section  id="section-hosttop" >
     <h2 >Olympic Hosting Champions: <br>Top 10 countries</h2>
-    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Rerum officia molestiae officiis inventore id! Asperiores beatae accusantium consequuntur aut, commodi nemo at similique voluptates ut maiores, a quis, vel molestias.</p>
+    <p>Being the Olympic host is a prestigious role. Hovewer it requires a significant commitment of resources and effort from every country. Not all nations are prepared to take on this task, but several countries have embraced this challenge multiple times. Here are the top 10.</p>
     <div id="chart"></svg>
 
 </section>
 
 
 <section id="section-champions">
-    <h2>Olympic Legends:  Top 10 all-time medal winners</h2>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero est et ipsam! Architecto atque, quas accusantium quae perferendis, b 
+    <h2>Olympic Legends: <br> Top 10 all-time medal winners</h2>
+    <p>Becoming an Olympic champion is a remarkable achievement. But for some extraordinary athletes, winning isn't a one-time affair. This list shows the top 10 all-time medal winners who have transcended boundaries to claim victory, not just once, but repeatedly, solidifying their status as world-famous stars in the  history of the Olympic Sports.
     </p>
     <div id="champions">
         <ol id="top-athlets">
@@ -230,6 +239,11 @@ g:nth-of-type(1) .tick:nth-child(4n-2) {
 <footer>
 <h1>Legal information</h1>    
 <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore mollitia labore dolores blanditiis error consectetur ut excepturi quaerat, accusantium molestias enim illum distinctio numquam eos saepe totam debitis, quia cupiditate!</p>
+
+
+<a href="https://www.kaggle.com/datasets/piterfm/olympic-games-medals-19862018">Olympic Summer & Winter Games, 1896-2022</a>
+<a href="https://www.kaggle.com/code/joshuaswords/does-hosting-the-olympics-improve-performance">Does hosting the Olympics improve performance?</a>
+<a href="https://www.kaggle.com/datasets/heesoo37/120-years-of-olympic-history-athletes-and-results">120 years of Olympic history: athletes and results</a>
 <span>2023 Univeristy of Gustav Eiffel - IUT Marne-la-Valée</span>
 
 </footer>

@@ -253,10 +253,18 @@ d3.csv('main_data.csv').then(function (data) {
     const maxValue = maxMedals
     console.log(maxValue) // max medals in history by one country
 
-    if (selectedYear == 1916 || selectedYear == 1940 || selectedYear == 1944) {
+    if (selectedYear == 1916) {
       d3.select('#section1').selectAll('.barre').remove()
-      d3.select('#div-section1').style('display', 'block')
-    } else {
+      d3.select('#div-section1').style('display', 'block').html("<p>The 1916 Olympic Games were scheduled to be held in Berlin, Germany, as part of the regular Olympic cycle. However, these Games were ultimately canceled due to the outbreak of World War I. The war began in 1914, and as it escalated into a global conflict, it became impossible to proceed with the peaceful and celebratory event that the Olympics represented.<br><br>It wasn't until 1920, after the conclusion of World War I, that the Olympics were able to resume with the Summer Games in Antwerp, Belgium.</p>")
+    } else if (selectedYear == 1940) {
+      d3.select('#section1').selectAll('.barre').remove()
+      d3.select('#div-section1').style('display', 'block').html("<p>The 1940 Winter and Summer Olympics were originally scheduled to be hosted in Sapporo, Japan, and Tokyo, Japan, respectively. However, World War II began in 1939, and by 1940, the conflict had escalated to a global scale. The hostilities made it impossible to organize the Games as planned.</p>")
+
+    } else if (selectedYear == 1944) {
+      d3.select('#section1').selectAll('.barre').remove()
+      d3.select('#div-section1').style('display', 'block').html("<p>The 1944 Winter and Summer Olympics were initially scheduled to be held in Cortina d'Ampezzo, Italy, and London, United Kingdom. However, World War II was still raging in 1944, and the war's impact on the world was even more severe. Many countries were actively involved in the war effort, with resources and manpower dedicated to the conflict. This left no capacity or priority for hosting or participating in an international sports competition.</p>") } 
+      else
+    {
       d3.select('#div-section1').style('display', 'none')
       d3.select('#section1')
         .selectAll('.barre')

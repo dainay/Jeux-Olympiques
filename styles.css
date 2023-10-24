@@ -216,7 +216,8 @@ header {
 #section-counter p {
     font-size: 1.3rem;
     color: #423824;
-    margin-left: 100px;
+    margin-left: 150px;
+    margin-right: 100px;
     margin-top: 30px;
 
 }
@@ -344,7 +345,7 @@ input[type="range"] {
 
     transition: box-shadow 1s ease-in-out;
     margin: 30px;
-    margin-left: 100px;
+    margin-left: 200px;
     overflow: hidden;
 
    @media screen and (-webkit-min-device-pixel-ratio:0) {
@@ -394,7 +395,15 @@ input[type="range"] {
 #section1-wrapp p {
     position: relative;
     top: -10px; 
+    max-width: 1000px;
     
+}
+
+#div-section1 p {
+     max-width: 600px;
+    font-size: 1.2rem;
+    padding-left: 50px;
+    padding-top: 20px;
 }
 
 /* section 3 */
@@ -422,7 +431,10 @@ font-family: "Paris2024";
 
 }
 
- 
+.sec3-p {
+    margin: 0 100px 0 150px;
+    max-width: 1150px;
+}
 
 select {
     width: 60%;
@@ -431,12 +443,13 @@ select {
     border: none;
     cursor: pointer;
     text-align: center;
-    margin: 20px 0 60px 100px;
+    margin: 20px 0 60px 150px;
     font-family: "Paris2024";
     font-size: 2rem;
    background-color: #f3f2f2;
 transition: all ease 1s;
 font-weight: 900;
+
 }
 
 select:hover {
@@ -532,7 +545,8 @@ font-style: normal;
 }
 
 #section-hosttop p {
-    margin: 20px 100px;
+    margin: 20px 100px 20px 150px;
+    max-width: 1100px;
     }
 #chart {
 
@@ -589,8 +603,8 @@ left: 30%;
 
 #section-champions p 
  {
-    margin-left: 100px;
-    margin-top: 20px;
+    margin: 20px 100px 20px 150px;
+    max-width: 1100px;
  
 }
 
@@ -645,7 +659,7 @@ left: 30%;
     transition:  ease 1s;
 }
 #top-athlets li:nth-child(1) .sportsman{
-    background: linear-gradient(to left, #967a3e00, #d6c16098); ;
+    background: linear-gradient(to left, #967a3e00, #d6c16098);
     margin-left: 5px;
     color: black;
     color: #855e11;
@@ -756,7 +770,9 @@ footer span {
 
 #winner-countries{
 background-color: white;
+margin: 0;
 margin-bottom: 30px;
+
 box-shadow: 15px 0 10px 5px #92929248;
 font-family: "paris2024";
 }
@@ -805,6 +821,7 @@ font-family: "paris2024";
 .countrybarre {
     background-color: #eaf7f0;
     position: relative;
+    transition: all 1s ease;
 }
 
 .wrapp-podium {
@@ -813,7 +830,8 @@ font-family: "paris2024";
 }
 
 .explication-points {
-max-width: 300px;
+max-width: 500px;
+margin: 30px 0px;
 }
 
 .place {
@@ -882,6 +900,12 @@ transition: all 1s ease;
     opacity: 0;
     transition: all 1s ease;
  }
+ .countrybarre:hover  {
+  
+    transition: all 1s ease;
+ 
+ background: linear-gradient(to top, #967a3e00, #1e9b5698);
+}
 
  .topgold{
   
