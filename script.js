@@ -1,19 +1,20 @@
-//timer dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+//timer till olympic games
+// dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 var countDownDate = new Date('Jul 26, 2024 20:00:00').getTime()
 var timer = setInterval(function () {
-  // Получить текущее время
+  // get current time
   var now = new Date().getTime()
 
-  // Вычислить оставшееся время
+  // left time
   var timeleft = countDownDate - now
 
-  // Рассчитать дни, часы, минуты и секунды
+  // days hours min sec
   var days = Math.floor(timeleft / (1000 * 60 * 60 * 24))
   var hours = Math.floor((timeleft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
   var minutes = Math.floor((timeleft % (1000 * 60 * 60)) / (1000 * 60))
   var seconds = Math.floor((timeleft % (1000 * 60)) / 1000)
 
-  // Обновить значения на странице
+  // update data on the page
   document.getElementById('days').innerHTML = days + ' <br><span>days</span> '
   document.getElementById('hours').innerHTML =
     hours + '<br><span> hours</span> '
@@ -22,14 +23,18 @@ var timer = setInterval(function () {
 }, 1000)
 //dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 
+//section1 - All common total for medals
+//create vars by medal types
 var totalMedals = 0
 var goldMedals = 0
 var silverMedals = 0
 var bronzeMedals = 0
 
-d3.csv('main_data.csv').then(function (data) {
+d3.csv('main_data.csv').then(function (data) { //connecting data
   data.forEach(function (row) {
     var medal = row.Medal
+
+    //counting medals total
 
     if (medal === 'GOLD') {
       goldMedals++
@@ -51,9 +56,10 @@ d3.csv('main_data.csv').then(function (data) {
   )
   //put all medals on the page
 
-  // document.getElementById('total').innerText = totalMedals;
 
   let start = 0
+
+  //to add medals with counter effect
 
   var timerTotal = setInterval(function () {
     if (start < totalMedals) {
@@ -62,7 +68,7 @@ d3.csv('main_data.csv').then(function (data) {
     }
   }, 1)
 
-  let start1 = 5000
+  let start1 = 5000 //adding initial number to be faster
 
   var timerTotal = setInterval(function () {
     if (start1 < goldMedals) {
@@ -89,14 +95,16 @@ d3.csv('main_data.csv').then(function (data) {
 
 
 //dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
-//to county all medals by country
+//section2 - count all medals by country
 
-d3.csv('main_data.csv').then(function(data) {
+d3.csv('main_data.csv').then(function(data) { //connecting data
   const countries = {};
-
+ // Get the country and medal from each row
   data.forEach(function(d) {
     const country = d.team;
     const medal = d.Medal;
+
+     // Initialize the country stats if exists
     if (!countries[country]) {
       countries[country] = {
         totalMedals: 0,
@@ -106,7 +114,10 @@ d3.csv('main_data.csv').then(function(data) {
         points: 0,
       };
     }
+     // Increment the total medals for the country
     countries[country].totalMedals++;
+
+       // Increment specific medal counts by type 
     if (medal === "GOLD") {
       countries[country].goldMedals++;
     } else if (medal === "SILVER") {
@@ -120,15 +131,15 @@ d3.csv('main_data.csv').then(function(data) {
       countries[country].silverMedals * 2 +
       countries[country].bronzeMedals;
   });
-
+//sorting medals by top 5
   const sortedCountries = Object.entries(countries)
     .sort((a, b) => b[1].points - a[1].points)
     .slice(0, 5);
 
-  // Select the existing #countries-top-medals section
+  // Select the   section
   const countriesTopMedals = d3.select('#countries-top-medals');
 
-  // Append divs for the top 5 countries with class based on index (0 for the first, 1 for the second, and so on)
+  // Append divs for the top 5 countries with class based on index 
   d3.select('#countries-top-medals')
   .selectAll('div')
   .data(sortedCountries)
@@ -145,6 +156,7 @@ d3.csv('main_data.csv').then(function(data) {
 });
 
 //ddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+//section3
 
 var medalCountByYear = {}
 
@@ -157,13 +169,13 @@ function aaa (data) {
 
     if (medal === 'GOLD' || medal === 'SILVER' || medal === 'BRONZE') {
       if (!medalCountByYear[team]) {
-        //if any medal exists we creat team if it wasnt created before
+        //if any medal exists we create a team if it wasn't created before
         medalCountByYear[team] = {}
       }
 
       if (!medalCountByYear[team][year]) {
         medalCountByYear[team][year] = {
-          //we create year if it wasnt created before
+          //we create year if it wasn't created before
           medals: 0
         }
       }
@@ -174,13 +186,13 @@ function aaa (data) {
     }
   })
 
-  ///input/////////////////////
+  ///input 
 
   var years = data
-    .map(d => d.year) // Фильтруем только уникальные значения из столбца 'year'
+    .map(d => d.year) // taking years from the data for input
     .filter((value, index, self) => self.indexOf(value) === index)
 
-  // Минимум и максимум только из отфильтрованных данных
+  // taking min and max from choosen years from data
   var minYear = d3.min(years)
   console.log(minYear)
   var maxYear = d3.max(years)
@@ -189,7 +201,7 @@ function aaa (data) {
   years.sort((a, b) => a - b)
   console.log(years)
 
-  var step = 4
+  var step = 4// step for beginning is 4 years
 
   console.log(step)
 
@@ -203,7 +215,7 @@ d3.csv('main_data.csv').then(function (data) {
   aaa(data)
   console.log(medalCountByYear) // check that table is working
   // check that table is working
-  var selectedYear = 2000
+  var selectedYear = 2000 //just random year to show results who are nice for changing page
 
   var rangeInput = d3.select('#year')
   dessin(selectedYear)
@@ -214,14 +226,14 @@ d3.csv('main_data.csv').then(function (data) {
   function dessin (selectedYear) {
     console.log('Selected Year:', selectedYear) //check input
 
-    if (selectedYear <= 1994) {
+    if (selectedYear <= 1994) { // we need to change input step because olymic games had differnt system before and after 1994
       var step = 4
     }
     if (selectedYear > 1994) {
       var step = 2
     }
 
-    console.log(step)
+    console.log(step)// check current step
 
     d3.select('#year').attr('step', step)
 
@@ -233,7 +245,7 @@ d3.csv('main_data.csv').then(function (data) {
         const bMedals = b[1][selectedYear]?.medals ?? 0
         return bMedals - aMedals
       })
-      .slice(0, 10)
+      .slice(0, 10) // choosing top 10 by every year
 
     console.log(sortedData)
     // showing bars with d3
@@ -251,8 +263,10 @@ d3.csv('main_data.csv').then(function (data) {
     }
 
     const maxValue = maxMedals
-    console.log(maxValue) // max medals in history by one country
+    console.log(maxValue) // max medals in history by one country to count size of bars according to this number
 
+
+    //specific information for years when olympic games were not held
     if (selectedYear == 1916) {
       d3.select('#section1').selectAll('.barre').remove()
       d3.select('#div-section1').style('display', 'block').html("<p>The 1916 Olympic Games were scheduled to be held in Berlin, Germany, as part of the regular Olympic cycle. However, these Games were ultimately canceled due to the outbreak of World War I. The war began in 1914, and as it escalated into a global conflict, it became impossible to proceed with the peaceful and celebratory event that the Olympics represented.<br><br>It wasn't until 1920, after the conclusion of World War I, that the Olympics were able to resume with the Summer Games in Antwerp, Belgium.</p>")
@@ -264,6 +278,7 @@ d3.csv('main_data.csv').then(function (data) {
       d3.select('#section1').selectAll('.barre').remove()
       d3.select('#div-section1').style('display', 'block').html("<p>The 1944 Winter and Summer Olympics were initially scheduled to be held in Cortina d'Ampezzo, Italy, and London, United Kingdom. However, World War II was still raging in 1944, and the war's impact on the world was even more severe. Many countries were actively involved in the war effort, with resources and manpower dedicated to the conflict. This left no capacity or priority for hosting or participating in an international sports competition.</p>") } 
       else
+      //for all other years when we have data about medals
     {
       d3.select('#div-section1').style('display', 'none')
       d3.select('#section1')
@@ -284,7 +299,7 @@ d3.csv('main_data.csv').then(function (data) {
         .transition()
         .style('width', d => {
           const medals = d[1][selectedYear]?.medals ?? 0
-          return (medals / maxValue) * 200 + '%'
+          return (medals / maxValue) * 200 + '%' // based on max medals ever won by one country in one year
         })
         .style('background', d => {
           return 'linear-gradient(to right, #570047, #A340B2)'
@@ -294,7 +309,6 @@ d3.csv('main_data.csv').then(function (data) {
         .style('border-radius', '0 25px 25px 0')
         .style('position', 'relative')
 
-      // .style('padding', '17px  0 0 10px')
       d3.select('#section1')
         .selectAll('.label')
 
@@ -303,6 +317,7 @@ d3.csv('main_data.csv').then(function (data) {
         .style('position', 'absolute')
         .text(d => {
           let name = d[0]
+          //correcting too much long names
           if (
             name === 'Russian Federation' ||
             name === 'ROC' ||
@@ -337,6 +352,7 @@ d3.csv('main_data.csv').then(function (data) {
         .style('color', d => {
           const qty = d[1][selectedYear].medals
 
+          //problem with bars who are too little to have their text inside with responsive design. so we change color of text and its place according to breakpoint and also for all countries who has more than 25 or 40 medals (because their bar will be too short)
           if (innerWidth < 1300) {
             if (qty < 40) {
               return `black`
@@ -383,12 +399,12 @@ d3.csv('main_data.csv').then(function (data) {
   }
 })
 
-// SECTION 2 dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+// SECTION 5 dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
 
 var bronzeSilverGold = {} // Iable who has all data about medals of last olympic game and chosen teams
 
 var allowedTeams = [
-  //places of last olympic games
+  //places of last olympic games from 1994
   'Japan',
   'Republic of Korea',
   'Brazil',
@@ -409,11 +425,11 @@ var allowedTeams = [
 
 var teamAliases = {
   'Russian Federation': 'Russia',
-  ROC: 'Russia',
+  'ROC': 'Russia',
   'Olympic Athletes from Russia': 'Russia'
 }
 
-d3.csv('main_data.csv').then(function (data) {
+d3.csv('main_data.csv').then(function (data) {//connect data
   data.forEach(function (row) {
     var year = row.year
     var team = row.team
@@ -425,7 +441,7 @@ d3.csv('main_data.csv').then(function (data) {
       (medal === 'GOLD' || medal === 'SILVER' || medal === 'BRONZE') &&
       allowedTeams.includes(team)
     ) {
-      // put together  "Russian Federation" and "ROC" under "Russia"
+      // put together  "Russian Federation" and "ROC" under "Russia" describe before
       if (teamAliases[team]) {
         team = teamAliases[team]
       }
@@ -434,7 +450,7 @@ d3.csv('main_data.csv').then(function (data) {
         bronzeSilverGold[team] = {}
       }
 
-      // Add missing years
+      // add start and end
       var startYear = 1994
       var endYear = 2022
       for (var i = startYear; i <= endYear; i++) {
@@ -446,7 +462,7 @@ d3.csv('main_data.csv').then(function (data) {
           }
         }
       }
-
+//counting medals like before
       if (medal === 'GOLD') {
         bronzeSilverGold[team][year].Gold++
       } else if (medal === 'SILVER') {
@@ -459,7 +475,7 @@ d3.csv('main_data.csv').then(function (data) {
 
   console.log(bronzeSilverGold, 'HERE MEDALS')
 
-  // Get a list of all countries (teams) from the data
+  // Get a list of all countries  from the data
   var countries = Object.keys(bronzeSilverGold)
   console.log(countries, 'countries')
 
@@ -476,7 +492,7 @@ d3.csv('main_data.csv').then(function (data) {
       return d
     })
     .property('selected', function (d) {
-      return d === 'Greece'
+      return d === 'Greece' //random country to show on main page
     })
 
   //to make graph responsive
@@ -564,6 +580,8 @@ d3.csv('main_data.csv').then(function (data) {
       .y1(d => yScale(d.Bronze + d.Silver + d.Gold))
       .curve(d3.curveCatmullRom)
 
+
+      //adding paths of steamgraphs
     svg
       .append('path')
       .datum(data)
@@ -593,8 +611,10 @@ d3.csv('main_data.csv').then(function (data) {
     var yAxis = d3.axisLeft(yScale)
     svg.append('g').attr('transform', 'translate(65, 0)').call(yAxis)
 
-    console.log('Updated streamgraph for team: ' + selectedTeam)
+    console.log('Updated streamgraph for team: ' + selectedTeam) //check if all of this works
 
+
+    //interesting facts about hosts
     const gamesByCountry = {
       Norway: [
         {
@@ -735,15 +755,12 @@ d3.csv('main_data.csv').then(function (data) {
         var selectedCity = game.city
         var selectedSeason = game.season
         var selectedFact = game.fact
-
+//give all info about host on page
         content += `
         <p><span id="host-country">${selectedTeam}</span> hosted ${selectedSeason} Olympic Games in ${selectedCity} in <span id="year-host">${selectedYear} </span> </p> <br<br><div class="fact"> <p>${selectedFact}</p></div>
       `
 
-        // Append the new div with the content
-        //     d3.select('#host').append('div').html(`
-        //   <p><span id="host-country">${selectedTeam}</span> hosted ${selectedSeason} Olympic Games in ${selectedCity} in <span id="year-host">${selectedYear}</span> </p> <div class="fact"> <p>${selectedFact}</p></div>
-        // `)
+       
 
         console.log(
           'Updated streamgraph for team: ' +
@@ -756,10 +773,11 @@ d3.csv('main_data.csv').then(function (data) {
 
         var selectedYears = selectedGames.map(game => game.year)
 
+        //to make year of hosting country on graph more visible
         tickText.each(function () {
-          var tickYear = parseInt(d3.select(this).text()) // Parse the text content as an integer
+          var tickYear = parseInt(d3.select(this).text()) // Parse the text content  
           if (selectedYears.includes(tickYear)) {
-            // Apply your condition if the tick year matches any of the selected years
+            // Apply the condition if the tick year matches any of the selected years
             d3.select(this)
               .attr('font-size', '1.2rem')
               .attr('font-weight', '700')
@@ -776,7 +794,7 @@ d3.csv('main_data.csv').then(function (data) {
       // Remove existing content inside the "host" element
       d3.select('#host').html('')
 
-      // Set the accumulated content after the loop is complete
+ // Add the new content to the "host" element
       d3.select('#host').html(content)
     }
   }
@@ -790,15 +808,16 @@ d3.csv('main_data.csv').then(function (data) {
 })
 
 //dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+//section of top hosts 
 
-fetch('hosting.json')
+fetch('hosting.json')//connect another data
   .then(response => response.json())
   .then(data => {
     // Count the occurrences of each country
     var locationCount = {}
     data.forEach(function (d) {
       if (locationCount[d.game_location]) {
-        locationCount[d.game_location]++
+        locationCount[d.game_location]++// counting locations
       } else {
         locationCount[d.game_location] = 1
       }
@@ -840,10 +859,12 @@ fetch('hosting.json')
   })
 
 //dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+//section of top athletes
 
-d3.csv('main_data.csv').then(function (data) {
+d3.csv('main_data.csv').then(function (data) {//connect data
   var athleteMedals = {}
 
+  //ajusting vars
   data.forEach(function (d) {
     var athlete = d.athlete
     var sport = d.discipline_title
@@ -851,6 +872,7 @@ d3.csv('main_data.csv').then(function (data) {
     var country = d.team
     var url = d.athlete_url
 
+   //counting medals for persons 
     if (athlete) {
       if (!athleteMedals[athlete]) {
         athleteMedals[athlete] = {
@@ -860,7 +882,7 @@ d3.csv('main_data.csv').then(function (data) {
           silverMedals: 0,
           bronzeMedals: 0,
           countries: {},
-          url: url // Store the URL for the athlete
+          url: url // Store the URL for the athlete to main site
         }
       }
       athleteMedals[athlete].total++
@@ -877,13 +899,14 @@ d3.csv('main_data.csv').then(function (data) {
         (athleteMedals[athlete].countries[country] || 0) + 1
     }
   })
-
+//choosing top 10 athelets
   var topAthletes = Object.keys(athleteMedals)
     .sort(function (a, b) {
       return athleteMedals[b].total - athleteMedals[a].total
     })
     .slice(0, 10)
 
+    //showing top 10 athelets and their medals
   topAthletes.forEach(function (athlete) {
     d3.select('#top-athlets')
       .append('li')

@@ -936,3 +936,39 @@ transition: all 1s ease;
     background-color: #dd6b3d ;
     color: #fce1db;
  }
+
+ footer p{
+    font-size: 1rem;
+    margin: 0;
+ }
+
+ footer h3{
+font-size: 1.1rem;
+ }
+
+ .wrapper-footer {
+display: flex;
+margin: 15px 100px;
+ }
+
+ .wrapper-footer div {
+
+    width: 40%;
+ }
+
+ .wrapper-footer a {
+    font-style: italic;
+   
+    color: black;
+    font-size: 1rem;
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+  
+ }
+
+ .wrapper-footer ul {
+    margin: 0;
+    padding: 0;
+    list-style: upper-roman;
+ }
