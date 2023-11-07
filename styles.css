@@ -832,6 +832,14 @@ font-family: "paris2024";
 .explication-points {
 max-width: 500px;
 margin: 30px 0px;
+
+}
+
+@media (max-width: 1500px) {
+    .explication-points{
+margin: auto;
+width: 900px;
+    }
 }
 
 .place {
@@ -951,11 +959,20 @@ display: flex;
 margin: 15px 100px;
  }
 
- .wrapper-footer div {
+ .wrapper-footer div:first-child {
 
-    width: 40%;
+    width: 90%;
+    margin-left: -60px;
  }
 
+ .wrapper-footer div:last-child  {
+    margin-left: 40px;
+   
+ }
+
+ .wrapper-footer div:last-child  p{
+ font-size: 0.9rem ;
+ }
  .wrapper-footer a {
     font-style: italic;
    
@@ -972,3 +989,16 @@ margin: 15px 100px;
     padding: 0;
     list-style: upper-roman;
  }
+
+ .wrapper-footer li {
+    margin-bottom: -20px;
+ }
+
+ footer a {
+    color: black;
+ }
+
+ .textsfooter {
+
+ }
+

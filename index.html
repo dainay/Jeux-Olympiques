@@ -6,35 +6,103 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <title>Olympic DataViz</title>
+    <link rel="icon" href="./img/olympic-medal.png">
     <!-- Load d3.js -->
     <script src="https://d3js.org/d3.v7.min.js"></script>
+
     <style>
         #year {
             width: 70%;
         }
 
-        body{
+        body {
             min-width: 1024px;
         }
 
- section {
-    padding-right: 70px;
- }
- g:nth-of-type(1) .tick:nth-child(4n) {
-  color: rgb(214, 91, 91);
-  font-family: "Paris2024";
-}
-g:nth-of-type(1) .tick:nth-child(4n-2) {
-  color: rgb(108, 108, 212);
-  font-family: "Paris2024";
-}
+        section {
+            padding-right: 70px;
+        }
+
+        g:nth-of-type(1) .tick:nth-child(4n) {
+            color: rgb(214, 91, 91);
+            font-family: "Paris2024";
+        }
+
+        g:nth-of-type(1) .tick:nth-child(4n-2) {
+            color: rgb(108, 108, 212);
+            font-family: "Paris2024";
+        }
+
+        #section3-wrapp {
+            margin-bottom: 50px;
+            margin-top: 50px;
+        }
+
+        #winner-countries {
+            margin-bottom: 50px;
+        }
+
+        #explication {
+            margin-top: 50px;
+        }
     </style>
 </head>
 
 <header>
 
     <div class="bloc_accueil">
-        <div class="logo"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 140 160"
+        <div class="logo"><a href="https://www.paris2024.org/en/">
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 140 160"
+                    xml:space="preserve" class="color ">
+                    <g class="emblem">
+                        <path fill="rgb(175, 140, 70)"
+                            d="M74.9,76.8c-1.2-0.4-3.2-0.5-4.9,0.9c-1.7-1.4-3.7-1.3-4.9-0.9c-1,0.4-1.8,0.6-3.3,0.6c1.5,3,4.6,5.1,8.2,5.1 c3.6,0,6.7-2.1,8.2-5.1C76.7,77.4,75.9,77.1,74.9,76.8z">
+                        </path>
+                        <path fill="rgb(175, 140, 70)"
+                            d="M70,0C45.3,0,25.2,20,25.2,44.7c0,21.2,14.7,38.9,34.5,43.6C44,79.9,37.6,60.6,45.2,44.5 c1.2,6.4,5.4,12.1,11.6,15C48.7,40.6,54.7,18.3,71.4,6C68.1,17.2,73.1,27.5,84,35.3c12.4,8.9,12.9,27.1,2,36.9 c4.3-1,8.4-3.4,11.4-7.1c-1.9,9.6-7.9,18.3-17.1,23.2c19.8-4.6,34.5-22.4,34.5-43.6C114.8,20,94.7,0,70,0z">
+                        </path>
+                    </g>
+                    <g class="paris2024">
+                        <title>Paris 2024</title>
+                        <path
+                            d="M137.9 103.9v4.6c-1-.7-2.3-.9-3.4-1.6-.9-.5-1.2-1.5-1.2-2.5v-4.2h-2.2v4.2c0 1.4.4 2.9 1.6 3.8.8.6 1.7.9 2.6 1.2.8.3 1.7.6 2.2 1.3.4.5.5 1.1.5 1.8v1.3h2.1v-9.9h-2.2zM122.6 107.6c.5-.6 1-1.2 1.3-1.9.3-.7.4-1.4.3-2.1-.2-1.4-1.2-2.6-2.5-3.1-1.3-.6-3-.6-4.3.1-1.3.6-2.2 1.9-2.3 3.3-.1 1.5.6 2.8 1.8 3.7l1.2-1.5c-.4-.4-.8-.9-.9-1.5-.1-.6 0-1.1.4-1.6.7-.9 2.1-1.2 3.2-.7.5.3 1 .7 1.1 1.2.2.6.1 1.2-.1 1.7-.3.5-.6 1-1 1.5-1.5 1.8-2.9 3.5-4.4 5.3-.5.6-1 1.3-1.6 1.9h9.8V112H119l3.6-4.4zM106.1 109c-.8 1.9-2.9 3.2-5 3-2.1-.1-3.9-1.6-4.5-3.5-.6-2 .1-4.2 1.8-5.5 1.7-1.3 4.1-1.3 5.9-.1 2 1.3 2.8 3.9 1.8 6.1zm.5-7c-2.2-2.1-5.6-2.6-8.3-1.4-2.8 1.2-4.4 4.1-4.2 7 .3 2.9 2.5 5.4 5.4 6.1 2.9.7 6.2-.3 7.9-2.8 1.8-2.4 1.7-5.8-.1-8.2-.2-.2-.5-.4-.7-.7zM86.1 107.6c.5-.6 1-1.2 1.3-1.9.3-.7.4-1.4.3-2.1-.2-1.4-1.2-2.6-2.5-3.1-1.3-.6-3-.6-4.3.1-1.3.6-2.2 1.9-2.3 3.3-.1 1.5.6 2.8 1.8 3.7l1.2-1.5c-.4-.4-.8-.9-.9-1.5-.1-.6 0-1.1.4-1.6.7-.9 2.1-1.2 3.2-.7.5.3 1 .7 1.1 1.2.2.6.1 1.2-.1 1.7-.3.5-.6 1-1 1.5-1.5 1.8-2.9 3.5-4.4 5.3l-1.6 1.9h9.8V112h-5.6l3.6-4.4zM65.9 107.3c-.8-.6-1.7-.9-2.6-1.3-.9-.3-1.8-.6-2.5-1.3-.6-.6-.4-1.6.1-2.2.6-.6 1.6-.7 2.4-.5.9.3 1.5 1.1 1.5 2H67c0-1-.3-1.9-1-2.7-.7-.7-1.6-1.1-2.6-1.3-1-.1-2.1 0-3 .5-.9.5-1.6 1.2-1.9 2.1-.3.9-.2 2 .2 2.8.5.9 1.4 1.4 2.4 1.8 1 .4 2.2.7 3.2 1.3.4.3.7.6.8 1 .1.4.1.9-.1 1.3-.5 1-1.8 1.3-2.8 1.1-1.1-.2-2-1.1-2-2.3h-2.1c0 1.1.4 2.1 1.2 2.9.8.8 1.9 1.2 3.1 1.3 1.2.1 2.4-.1 3.4-.8.9-.6 1.5-1.6 1.6-2.6-.1-1.1-.5-2.3-1.5-3.1zM49.2 103.3v10.5h2.2V103c-.8 0-1.5.1-2.2.3zM49.2 102.1c.7-.2 1.4-.3 2.2-.3v-1.6h-2.2v1.9zM36.8 102.2c1.4 0 2.8.7 2.9 2.1.1.7-.1 1.4-.6 1.9-.5.6-1.3.9-2 1.3-.9.4-1.7.8-2.5 1.5v-6.8h2.2zm3.3 6.5c-.2-.1-.5-.2-.8-.3.7-.4 1.4-.8 1.9-1.4.4-.6.7-1.2.8-1.9.2-1.5-.3-2.9-1.6-3.8-1.7-1.2-3.8-1-5.8-1h-2.1v13.6h2.2v-1.2c0-.9.5-1.8 1.3-2.2.8-.5 1.9-.5 2.7-.2.8.4 1.4 1.2 1.5 2 .1.5 0 1.1 0 1.6h2.2c0-.7 0-1.5-.1-2.2-.3-1.3-1.1-2.4-2.2-3zM23 108.7c-1.3-1.3-3.2-1.7-5-1.4v-2.2c0-.4 0-.8.1-1.2.2-.8.8-1.4 1.6-1.6.8-.3 1.7-.1 2.4.4s1 1.3 1 2.1V109c0-.2-.1-.3-.1-.3zm0-8.1c-1.9-1-4.6-.7-6 .9-.7.8-1.1 1.8-1.1 2.8v9.5H18v-4.5c1.3-.2 2.7 0 3.8.7 1 .7 1.4 1.7 1.4 2.8v.9h2.2v-9.1c-.1-1.6-.8-3.2-2.4-4zM6.9 106c-.5.7-1.4 1.2-2.2 1.6-.9.4-1.8.9-2.5 1.5v-6.8h2.1c1.2 0 2.4.3 2.9 1.5.2.6.1 1.5-.3 2.2zm.1-5.2c-1-.5-2.2-.5-3.3-.5H0v13.6h2.2c0-.8-.1-1.6.3-2.3.5-1.2 1.8-1.7 2.9-2.2 1.2-.6 2.5-1.1 3.3-2.2.7-1 .9-2.2.7-3.4-.2-1.4-1.2-2.5-2.4-3z">
+                        </path>
+                    </g>
+                    <g class="olympics">
+                        <circle class="ring blue" cx="44.9" cy="137.8" r="10.5" fill="none" stroke="#0081C8"
+                            stroke-width="2" stroke-miterlimit="10"></circle>
+                        <circle class="ring black" cx="70" cy="137.8" r="10.5" fill="none" stroke="#000000" stroke-width="2"
+                            stroke-miterlimit="10"></circle>
+                        <circle class="ring red" cx="95" cy="137.8" r="10.5" fill="none" stroke="#EE334E" stroke-width="2"
+                            stroke-miterlimit="10"></circle>
+                        <circle class="ring yellow" cx="57.3" cy="148.5" r="10.5" fill="none" stroke="#FCB131"
+                            stroke-width="2" stroke-miterlimit="10"></circle>
+                        <circle class="ring green" cx="82.5" cy="148.5" r="10.5" fill="none" stroke="#00A651"
+                            stroke-width="2" stroke-miterlimit="10"></circle>
+                    </g>
+                    <g class="paralympics"> </g>
+                </svg>
+        </a> </div>
+
+        <div id="timer">
+            <div>
+                <p>It left till olympic games</p>
+            </div>
+            <div id="days">21</div>
+            <div id="hours"></div>
+            <div id="mins"></div>
+            <div id="secs"></div>
+        </div>
+
+        <h1 class="dataviz">OLYMPIC <br>DATAVIZ</h1>
+    </div>
+</header>
+
+<body>
+
+
+    <section id="explication">
+        <div class="logo2"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 140 160"
                 xml:space="preserve" class="color ">
                 <g class="emblem">
                     <path fill="rgb(175, 140, 70)"
@@ -63,66 +131,21 @@ g:nth-of-type(1) .tick:nth-child(4n-2) {
                         stroke-width="2" stroke-miterlimit="10"></circle>
                 </g>
                 <g class="paralympics"> </g>
-            </svg> </div>
-
-        <div id="timer">
-            <div>
-                <p>It left till olympic games</p>
-            </div>
-            <div id="days">21</div>
-            <div id="hours"></div>
-            <div id="mins"></div>
-            <div id="secs"></div>
+            </svg>
         </div>
-
-        <h1 class="dataviz">OLYMPIC <br>DATAVIZ</h1>
-    </div>
-</header>
-
-<body>
-
-
-<section id="explication">
-     <div class="logo2"><svg version="1.1" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 140 160"
-        xml:space="preserve" class="color ">
-        <g class="emblem">
-            <path fill="rgb(175, 140, 70)"
-                d="M74.9,76.8c-1.2-0.4-3.2-0.5-4.9,0.9c-1.7-1.4-3.7-1.3-4.9-0.9c-1,0.4-1.8,0.6-3.3,0.6c1.5,3,4.6,5.1,8.2,5.1 c3.6,0,6.7-2.1,8.2-5.1C76.7,77.4,75.9,77.1,74.9,76.8z">
-            </path>
-            <path fill="rgb(175, 140, 70)"
-                d="M70,0C45.3,0,25.2,20,25.2,44.7c0,21.2,14.7,38.9,34.5,43.6C44,79.9,37.6,60.6,45.2,44.5 c1.2,6.4,5.4,12.1,11.6,15C48.7,40.6,54.7,18.3,71.4,6C68.1,17.2,73.1,27.5,84,35.3c12.4,8.9,12.9,27.1,2,36.9 c4.3-1,8.4-3.4,11.4-7.1c-1.9,9.6-7.9,18.3-17.1,23.2c19.8-4.6,34.5-22.4,34.5-43.6C114.8,20,94.7,0,70,0z">
-            </path>
-        </g>
-        <g class="paris2024">
-            <title>Paris 2024</title>
-            <path
-                d="M137.9 103.9v4.6c-1-.7-2.3-.9-3.4-1.6-.9-.5-1.2-1.5-1.2-2.5v-4.2h-2.2v4.2c0 1.4.4 2.9 1.6 3.8.8.6 1.7.9 2.6 1.2.8.3 1.7.6 2.2 1.3.4.5.5 1.1.5 1.8v1.3h2.1v-9.9h-2.2zM122.6 107.6c.5-.6 1-1.2 1.3-1.9.3-.7.4-1.4.3-2.1-.2-1.4-1.2-2.6-2.5-3.1-1.3-.6-3-.6-4.3.1-1.3.6-2.2 1.9-2.3 3.3-.1 1.5.6 2.8 1.8 3.7l1.2-1.5c-.4-.4-.8-.9-.9-1.5-.1-.6 0-1.1.4-1.6.7-.9 2.1-1.2 3.2-.7.5.3 1 .7 1.1 1.2.2.6.1 1.2-.1 1.7-.3.5-.6 1-1 1.5-1.5 1.8-2.9 3.5-4.4 5.3-.5.6-1 1.3-1.6 1.9h9.8V112H119l3.6-4.4zM106.1 109c-.8 1.9-2.9 3.2-5 3-2.1-.1-3.9-1.6-4.5-3.5-.6-2 .1-4.2 1.8-5.5 1.7-1.3 4.1-1.3 5.9-.1 2 1.3 2.8 3.9 1.8 6.1zm.5-7c-2.2-2.1-5.6-2.6-8.3-1.4-2.8 1.2-4.4 4.1-4.2 7 .3 2.9 2.5 5.4 5.4 6.1 2.9.7 6.2-.3 7.9-2.8 1.8-2.4 1.7-5.8-.1-8.2-.2-.2-.5-.4-.7-.7zM86.1 107.6c.5-.6 1-1.2 1.3-1.9.3-.7.4-1.4.3-2.1-.2-1.4-1.2-2.6-2.5-3.1-1.3-.6-3-.6-4.3.1-1.3.6-2.2 1.9-2.3 3.3-.1 1.5.6 2.8 1.8 3.7l1.2-1.5c-.4-.4-.8-.9-.9-1.5-.1-.6 0-1.1.4-1.6.7-.9 2.1-1.2 3.2-.7.5.3 1 .7 1.1 1.2.2.6.1 1.2-.1 1.7-.3.5-.6 1-1 1.5-1.5 1.8-2.9 3.5-4.4 5.3l-1.6 1.9h9.8V112h-5.6l3.6-4.4zM65.9 107.3c-.8-.6-1.7-.9-2.6-1.3-.9-.3-1.8-.6-2.5-1.3-.6-.6-.4-1.6.1-2.2.6-.6 1.6-.7 2.4-.5.9.3 1.5 1.1 1.5 2H67c0-1-.3-1.9-1-2.7-.7-.7-1.6-1.1-2.6-1.3-1-.1-2.1 0-3 .5-.9.5-1.6 1.2-1.9 2.1-.3.9-.2 2 .2 2.8.5.9 1.4 1.4 2.4 1.8 1 .4 2.2.7 3.2 1.3.4.3.7.6.8 1 .1.4.1.9-.1 1.3-.5 1-1.8 1.3-2.8 1.1-1.1-.2-2-1.1-2-2.3h-2.1c0 1.1.4 2.1 1.2 2.9.8.8 1.9 1.2 3.1 1.3 1.2.1 2.4-.1 3.4-.8.9-.6 1.5-1.6 1.6-2.6-.1-1.1-.5-2.3-1.5-3.1zM49.2 103.3v10.5h2.2V103c-.8 0-1.5.1-2.2.3zM49.2 102.1c.7-.2 1.4-.3 2.2-.3v-1.6h-2.2v1.9zM36.8 102.2c1.4 0 2.8.7 2.9 2.1.1.7-.1 1.4-.6 1.9-.5.6-1.3.9-2 1.3-.9.4-1.7.8-2.5 1.5v-6.8h2.2zm3.3 6.5c-.2-.1-.5-.2-.8-.3.7-.4 1.4-.8 1.9-1.4.4-.6.7-1.2.8-1.9.2-1.5-.3-2.9-1.6-3.8-1.7-1.2-3.8-1-5.8-1h-2.1v13.6h2.2v-1.2c0-.9.5-1.8 1.3-2.2.8-.5 1.9-.5 2.7-.2.8.4 1.4 1.2 1.5 2 .1.5 0 1.1 0 1.6h2.2c0-.7 0-1.5-.1-2.2-.3-1.3-1.1-2.4-2.2-3zM23 108.7c-1.3-1.3-3.2-1.7-5-1.4v-2.2c0-.4 0-.8.1-1.2.2-.8.8-1.4 1.6-1.6.8-.3 1.7-.1 2.4.4s1 1.3 1 2.1V109c0-.2-.1-.3-.1-.3zm0-8.1c-1.9-1-4.6-.7-6 .9-.7.8-1.1 1.8-1.1 2.8v9.5H18v-4.5c1.3-.2 2.7 0 3.8.7 1 .7 1.4 1.7 1.4 2.8v.9h2.2v-9.1c-.1-1.6-.8-3.2-2.4-4zM6.9 106c-.5.7-1.4 1.2-2.2 1.6-.9.4-1.8.9-2.5 1.5v-6.8h2.1c1.2 0 2.4.3 2.9 1.5.2.6.1 1.5-.3 2.2zm.1-5.2c-1-.5-2.2-.5-3.3-.5H0v13.6h2.2c0-.8-.1-1.6.3-2.3.5-1.2 1.8-1.7 2.9-2.2 1.2-.6 2.5-1.1 3.3-2.2.7-1 .9-2.2.7-3.4-.2-1.4-1.2-2.5-2.4-3z">
-            </path>
-        </g>
-        <g class="olympics">
-            <circle class="ring blue" cx="44.9" cy="137.8" r="10.5" fill="none" stroke="#0081C8"
-                stroke-width="2" stroke-miterlimit="10"></circle>
-            <circle class="ring black" cx="70" cy="137.8" r="10.5" fill="none" stroke="#000000" stroke-width="2"
-                stroke-miterlimit="10"></circle>
-            <circle class="ring red" cx="95" cy="137.8" r="10.5" fill="none" stroke="#EE334E" stroke-width="2"
-                stroke-miterlimit="10"></circle>
-            <circle class="ring yellow" cx="57.3" cy="148.5" r="10.5" fill="none" stroke="#FCB131"
-                stroke-width="2" stroke-miterlimit="10"></circle>
-            <circle class="ring green" cx="82.5" cy="148.5" r="10.5" fill="none" stroke="#00A651"
-                stroke-width="2" stroke-miterlimit="10"></circle>
-        </g>
-        <g class="paralympics"> </g>
-    </svg> 
-</div>
         <div class="exp1 exp">
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est reprehenderit doloribus necessitatibus ullam fugit voluptates, nihil minus nobis minima, quasi sint unde qui ex. Quo ullam doloribus similique voluptas error.</p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Est reprehenderit doloribus necessitatibus ullam
+                fugit voluptates, nihil minus nobis minima, quasi sint unde qui ex. Quo ullam doloribus similique
+                voluptas error.</p>
         </div>
         <div class="line"></div>
         <div class="exp2 exp">
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus illum nam possimus quo? Aperiam, magnam aliquam harum sapiente nobis architecto minus similique tempora numquam accusamus repellendus eveniet iure illum eum!</p>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Natus illum nam possimus quo? Aperiam, magnam
+                aliquam harum sapiente nobis architecto minus similique tempora numquam accusamus repellendus eveniet
+                iure illum eum!</p>
         </div>
-    
-</section>
+
+    </section>
 
 
 
@@ -130,7 +153,8 @@ g:nth-of-type(1) .tick:nth-child(4n-2) {
     <section id="section-counter">
         <div class="wrap-counter">
             <h2>History of Olympic Medals: A Grand Total</h2>
-            <p>Across a century of Olympic history, countless medals have been earned, reflecting the dedication and excellence of athletes from around the globe. But how many?</p>
+            <p>Across a century of Olympic history, countless medals have been earned, reflecting the dedication and
+                excellence of athletes from around the globe. But how many?</p>
             <div class="medals-counter">
                 <div class="box-medal total"> Total <br><span id="total"></span></div>
                 <div class="box-medal"> Gold <br><span id="gold"></span></div>
@@ -147,31 +171,45 @@ g:nth-of-type(1) .tick:nth-child(4n-2) {
 
     <section id="winner-countries">
         <h2>Olympic Leaders: <br> Top 5 Nations on the Podium</h2>
-<div class="wrapp-podium">
-    <div id="countries-top-medals"></div>
-    <div class="explication-points"><p>The question of which country has achieved the greatest Olympic success is undoubtedly complex, influenced by numerous factors such as population size, economic resources, the level of investment in sports, climatic conditions, and even historical stability. It is evident that countries with a stable history and territorial integrity over the last century have a distinct advantage.
-<br><br>
-        In this graphic, we aim to provide a simplified representation of Olympic success, focusing solely on the quantity of medals and their respective characteristics. Our point system assigns <b>3 points to gold medals</b>, <b>2 points to silver</b>, and <b>1 point to bronze</b>. This approach allows for a straightforward comparison based on medal counts, although it may not capture the full scope of a nation's sporting achievements.</p></div>
-</div>
+        <div class="wrapp-podium">
+            <div id="countries-top-medals"></div>
+            <div class="explication-points">
+                <p>The question of which country has achieved the greatest Olympic success is undoubtedly complex,
+                    influenced by numerous factors such as population size, economic resources, the level of investment
+                    in sports, climatic conditions, and even historical stability. It is evident that countries with a
+                    stable history and territorial integrity over the last century have a distinct advantage.
+                    <br><br>
+                    In this graphic, we aim to provide a simplified representation of Olympic success, focusing solely
+                    on the quantity of medals and their respective characteristics. Our point system assigns <b>3 points
+                        to gold medals</b>, <b>2 points to silver</b>, and <b>1 point to bronze</b>. This approach
+                    allows for a straightforward comparison based on medal counts, although it may not capture the full
+                    scope of a nation's sporting achievements.
+                </p>
+            </div>
+        </div>
 
     </section>
 
-<section class="info">
-    <div class="wrapper-info">
-        <div class="info-div"></div>
-        <div class="info-div"></div> 
-        <div class="info-div"></div>
-    </div>
-</section>
+    <section class="info">
+        <div class="wrapper-info">
+            <div class="info-div"></div>
+            <div class="info-div"></div>
+            <div class="info-div"></div>
+        </div>
+    </section>
 
 
     <section id="section1-wrapp">
         <h2>Year-by-Year: <br> Top 10 Medal Winners
-            <br></h2>
-        <p id="section1-p">
-            Olympic fortunes change rapidly, with varying countries rising to the top each year. By adjusting this scroll, you can navigate through different years to see the top ten nations that achieved the best results.
             <br>
-            <br> You can also compare which years were more successful for world sport in general. The bars represent the medals earned by each country, relative to the maximum possible number of medals that were won by one country in a single year.
+        </h2>
+        <p id="section1-p">
+            Olympic fortunes change rapidly, with varying countries rising to the top each year. By adjusting this
+            scroll, you can navigate through different years to see the top ten nations that achieved the best results.
+            <br>
+            <br> You can also compare which years were more successful for world sport in general. The bars represent
+            the medals earned by each country, relative to the maximum possible number of medals that were won by one
+            country in a single year.
         </p>
         <div id="bar-around">
             <div id="section1">
@@ -179,7 +217,7 @@ g:nth-of-type(1) .tick:nth-child(4n-2) {
                 <div id="results"></div>
 
                 <div id="div-section1" style="display: none;">
-                  
+
                 </div>
             </div>
             <div id="years">
@@ -194,10 +232,17 @@ g:nth-of-type(1) .tick:nth-child(4n-2) {
 
     <section id="section3-wrapp">
         <h2>Olympic Advantages: <br> Do Host Countries Win More?</h2>
-<p class="sec3-p">The privilege of hosting the Olympic Games is both an honor and a responsibility.  The home-field advantage, the support of local fans,  familiarity with the venues...  Does hosting games come with a competitive advantage?
-    <br><br>This streamgraph represents the medals won by all host countries since 1994. This year serves as a reference point because, starting from 1994, the modern system of a four-year period was established. Prior to that, both the Summer and Winter Games were held in the same year. The decision to stagger these events was made to address the logistical challenges of hosting two major international sporting events in a single year. The years when the Winter Games occurred are marked in blue, while the Summer Games are denoted in red.
-</p>
-<br><br>
+        <p class="sec3-p">The privilege of hosting the Olympic Games is both an honor and a responsibility. The
+            home-field advantage, the support of local fans, familiarity with the venues... Does hosting games come with
+            a competitive advantage?
+            <br><br>This streamgraph represents the medals won by all host countries since 1994. This year serves as a
+            reference point because, starting from 1994, the modern system of a four-year period was established. Prior
+            to that, both the Summer and Winter Games were held in the same year. The decision to stagger these events
+            was made to address the logistical challenges of hosting two major international sporting events in a single
+            year. The years when the Winter Games occurred are marked in blue, while the Summer Games are denoted in
+            red.
+        </p>
+        <br><br>
         <select name="selectedTeam" id="selectedTeam"></select>
         <!-- to choose the country -->
 
@@ -210,57 +255,78 @@ g:nth-of-type(1) .tick:nth-child(4n-2) {
                 <!-- info about seleced country -->
             </div>
             <div class="sec3-correlation">
-                <p>The Summer Olympic Games typically offer around 300 medal sets, while the Winter Olympics provide only about 100. Therefore, a correlation of 3 to 1 between the medals won in Summer and Winter Games is considered normal. This correlation suggests that a country is striving to excel in a wide variety of sports. <br> If this correlation is higher or lower, it can indicate whether the country is stronger in Summer or Winter Games, which may be connected to climate and cultural politics. </p>
+                <p>The Summer Olympic Games typically offer around 300 medal sets, while the Winter Olympics provide
+                    only about 100. Therefore, a correlation of 3 to 1 between the medals won in Summer and Winter Games
+                    is considered normal. This correlation suggests that a country is striving to excel in a wide
+                    variety of sports. <br> If this correlation is higher or lower, it can indicate whether the country
+                    is stronger in Summer or Winter Games, which may be connected to climate and cultural politics. </p>
             </div>
         </div>
     </section>
 
 
 
-<section  id="section-hosttop" >
-    <h2 >Olympic Hosting Champions: <br>Top 10 countries</h2>
-    <p>Being the Olympic host is a prestigious role. Hovewer it requires a significant commitment of resources and effort from every country. Not all nations are prepared to take on this task, but several countries have embraced this challenge multiple times. Here are the top 10.</p>
-    <div id="chart"></svg>
+    <section id="section-hosttop">
+        <h2>Olympic Hosting Champions: <br>Top 10 countries</h2>
+        <p>Being the Olympic host is a prestigious role. Hovewer it requires a significant commitment of resources and
+            effort from every country. Not all nations are prepared to take on this task, but several countries have
+            embraced this challenge multiple times. Here are the top 10.</p>
+        <div id="chart"></svg>
 
-</section>
+    </section>
 
 
-<section id="section-champions">
-    <h2>Olympic Legends: <br> Top 10 all-time medal winners</h2>
-    <p>Becoming an Olympic champion is a remarkable achievement. But for some extraordinary athletes, winning isn't a one-time affair. This list shows the top 10 all-time medal winners who have transcended boundaries to claim victory, not just once, but repeatedly, solidifying their status as world-famous stars in the  history of the Olympic Sports.
-    </p>
-    <div id="champions">
-        <ol id="top-athlets">
-            
-        </ol>
-    </div>
-</section>
+    <section id="section-champions">
+        <h2>Olympic Legends: <br> Top 10 all-time medal winners</h2>
+        <p>Becoming an Olympic champion is a remarkable achievement. But for some extraordinary athletes, winning isn't
+            a one-time affair. This list shows the top 10 all-time medal winners who have transcended boundaries to
+            claim victory, not just once, but repeatedly, solidifying their status as world-famous stars in the history
+            of the Olympic Sports.
+        </p>
+        <div id="champions">
+            <ol id="top-athlets">
 
-<footer>
-<h1>Legal information</h1>    
+            </ol>
+        </div>
+    </section>
 
-<p>This project was collaboratively created by Daria Iarovaia and Andréa Laizeau.</p>
+    <footer>
+        <h1>Legal information</h1>
 
-<div class="wrapper-footer">
-    <div>
-        <h3>Data Sources:</h3>
-        <ul>
-        <li><a href="https://www.kaggle.com/datasets/piterfm/olympic-games-medals-19862018">Olympic Summer & Winter Games, 1896-2022</a></li><br>
-        <li><a href="https://www.kaggle.com/code/joshuaswords/does-hosting-the-olympics-improve-performance">Does hosting the Olympics improve performance?</a></li><br>
-        <li><a href="https://www.kaggle.com/datasets/heesoo37/120-years-of-olympic-history-athletes-and-results">120 years of Olympic history: athletes and results</a></li><br>
-        </ul>
-    </div>
-    
-    <div>
-        <h3>Attribution and Credit:</h3>
-        <p>The project incorporates elements from the official Olympic site, including the Olympic logo and design concept. We would like to give full credit to the International Olympic Committee (IOC) and its associated organizations for these assets. <br>
-            This website is intended solely for educational purposes. It is not created or used for profit, commercial gain, or any form of revenue generation.  <br><br>
-            We would like to express our gratitude to our teachers for their valuable guidance, support, and mentorship throughout the development of this project.</p>
-    </div>
-</div>
-<span>2023 Univeristy of Gustav Eiffel - IUT Marne-la-Valée</span>
+        <p>This project was collaboratively created by <a href="https://www.linkedin.com/in/dariaiarovaia/"><b>Daria Iarovaia</b></a> and <a href="https://www.linkedin.com/in/andrea-laizeau/"><b>Andréa Laizeau</b>.</a></p>
 
-</footer>
+        <div class="wrapper-footer">
+            <div>
+                <h3>Data Sources:</h3>
+                <ul>
+                    <li><a href="https://www.kaggle.com/datasets/piterfm/olympic-games-medals-19862018">Olympic Summer &
+                            Winter Games, 1896-2022</a></li><br>
+                    <li><a
+                            href="https://www.kaggle.com/code/joshuaswords/does-hosting-the-olympics-improve-performance">Does
+                            hosting the Olympics improve performance?</a></li><br>
+                    <li><a
+                            href="https://www.kaggle.com/datasets/heesoo37/120-years-of-olympic-history-athletes-and-results">120
+                            years of Olympic history: athletes and results</a></li><br>
+                </ul>
+
+                <h3>Hosting:</h3>
+<p>This website is hosted on the Git platform.</p>
+            </div>
+
+            <div class="textsfooter">
+                <h3>Attribution and Credit:</h3>
+                <p>The project incorporates elements from the official Olympic site, including the Olympic logo and
+                    design concept. Only reason to use those elements is to promote this world sportive event. Full credits belong to the International Olympic Committee (IOC) and its associated organizations for these assets. <br>
+                </p><p>
+                    This website is intended solely for educational purposes. It is not created or used for profit,
+                    commercial gain, or any form of revenue generation. <br><br>
+                    We would like to express our gratitude to our teachers for their valuable guidance and
+                    mentorship throughout the development of this project.</p>
+            </div>
+        </div>
+        <span>2023 Univeristy of Gustav Eiffel - IUT Marne-la-Valée</span>
+
+    </footer>
 
     <script src="script.js"></script>
 </body>
