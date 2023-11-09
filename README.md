@@ -1,8 +1,7 @@
 # Olympic-DataViz
 URL du site : https://github.com/dainay/Olympic-DataViz.git 
 
-Création d'une représentation visuelle **interactive** de données en constante évolution. 
-Informez-vous sur le **nombre de médailles** remportées lors des **Jeux Olympiques**, grâce à des graphiques interactifs ! 
+Création d'une représentation visuelle **interactive** de données en constante évolution, ayant pour objectif de rendre les chiffres plus accessibles en les rendant interactifs. Ainsi, il devient plus aisé de les comparer et de les **analyser**. Informez-vous sur le nombre de **médailles** gagnées, lors des **Jeux Olympiques**, par les plus grands athlètes, par pays, ou encore par année.
 
 
 ## Installation du site 
