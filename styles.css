@@ -1,4 +1,4 @@
-/* responsive jusqu'a 1024 */
+/* responsive till 1024 */
 
 *,
 *::after,
@@ -160,6 +160,10 @@ header {
 }
 .exp {
     width: 300px;
+}
+.exp1, .exp2 {
+    width: 450px;
+ 
 }
 
 #section-counter {
