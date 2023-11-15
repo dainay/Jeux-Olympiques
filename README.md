@@ -37,7 +37,9 @@ Les données utilisées dans ce projet sont réelles. Sources :
 - [@Andrea32004](https://github.com/Andrea32004)
 
 
-##English version
+
+
+# English version
 
 This project aimed at **developing a visual and interactive representation of data**. The main objective was to use JavaScript and D3.js technologies to make the data more accessible by presenting it in the form of interactive graphics.
 
@@ -48,26 +50,26 @@ Paris will host the Olympic Games in 2024. To stimulate interest in this interna
 - an analysis of the impact of a country hosting the Games on the number of medals won,
 - the top athletes who have won the most medals in the history of this event.
 
-##Site Installation
+## Site Installation
 **Download the site files** :
 Click on the "Code" button at the top right of the repository, then select "Download ZIP." A zip folder is thus downloaded to your computer.
 Right-click on the zip folder > extract all. You now have a local copy of the site files in a folder on your computer.
 Remember to place your folder in the corresponding path for your local host: wamp64/www (if using *Wamp* server), xampp/htdocs (for *Xamp*), or MAMP/htdocs (for *Mamp*).
 
-##Technologies
+## Technologies
 HTML
 CSS
 JS
 D3.js
 
-##Data
+## Data
 The data used in this project is real. Sources:
 - [Olympic Summer & Winter Games, 1896-2022](https://www.kaggle.com/datasets/piterfm/olympic-games-medals-19862018)
 - [Does hosting the Olympics improve performance ?](https://www.kaggle.com/code/joshuaswords/does-hosting-the-olympics-improve-performance)
 - [120 years of Olympic history: athletes and results](https://www.kaggle.com/datasets/heesoo37/120-years-of-olympic-history-athletes-and-results)
 - [Paris 2024](https://www.paris2024.org/)
 
-##Authors
+## Authors
 - [@dainay](https://github.com/dainay)
 - [@Andrea32004](https://github.com/Andrea32004)
 
