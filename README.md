@@ -12,10 +12,10 @@ Paris sera la capitale des Jeux Olympiques de 2024. Afin de stimuler l'intérêt
 
 ## Installation du site 
 **Télécharger les fichiers du site** :
-- Cliquez sur le bouton "Code" en haut à droite du dépôt, puis sélectionnez "Download ZIP". Un dossier zip est ainsi téléchargé sur votre ordinateur.
-- Clic droit sur le dossier zip > extraire tout.
+1. Cliquez sur le bouton "Code" en haut à droite du dépôt, puis sélectionnez "Download ZIP". Un dossier zip est ainsi téléchargé sur votre ordinateur.
+2. Clic droit sur le dossier zip > extraire tout.
 Vous avez ainsi une copie locale des fichiers du site dans un dossier sur votre ordinateur.
-- Pensez à placer votre dossier dans le chemin correspondant à votre hébergeur local : wamp64/www (si vous utilisez le serveur *Wamp*), xampp/htdocs (pour *Xamp*) ou MAMP/htdocs (pour *Mamp*).
+3. Pensez à placer votre dossier dans le chemin correspondant à votre hébergeur local : wamp64/www (si vous utilisez le serveur *Wamp*), xampp/htdocs (pour *Xamp*) ou MAMP/htdocs (pour *Mamp*).
 
 
 ## Technologies
@@ -52,15 +52,15 @@ Paris will host the Olympic Games in 2024. To stimulate interest in this interna
 
 ## Site Installation
 **Download the site files** :
-Click on the "Code" button at the top right of the repository, then select "Download ZIP." A zip folder is thus downloaded to your computer.
-Right-click on the zip folder > extract all. You now have a local copy of the site files in a folder on your computer.
-Remember to place your folder in the corresponding path for your local host: wamp64/www (if using *Wamp* server), xampp/htdocs (for *Xamp*), or MAMP/htdocs (for *Mamp*).
+1. Click on the "Code" button at the top right of the repository, then select "Download ZIP." A zip folder is thus downloaded to your computer.
+2. Right-click on the zip folder > extract all. You now have a local copy of the site files in a folder on your computer.
+3. Remember to place your folder in the corresponding path for your local host: wamp64/www (if using *Wamp* server), xampp/htdocs (for *Xamp*), or MAMP/htdocs (for *Mamp*).
 
 ## Technologies
-HTML
-CSS
-JS
-D3.js
+- HTML
+- CSS
+- JS
+- D3.js
 
 ## Data
 The data used in this project is real. Sources:
