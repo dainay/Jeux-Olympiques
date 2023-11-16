@@ -70,7 +70,7 @@ header {
     text-align: left;
     padding-left: 50px;
     text-shadow: black 0px 0px 10px 15px;
-    margin-top: 150px;
+    margin-top: 23vh;
     line-height: 9rem;
     margin-left: 100px;
 
@@ -114,7 +114,7 @@ header {
     background-color: white;
     border-radius: 50px;
     box-shadow: 0 0 10px 10px rgba(0, 0, 0, 0.068);
-    height: 80px;
+    height: 90px;
     margin-top: 30px;
     display: flex;
     font-family: 'Paris2024';
@@ -123,6 +123,17 @@ header {
     padding: 20px 20px;
     line-height: 1rem;
     align-items: center;
+    padding-top: 30px !important;
+
+    
+}
+#timer > div:not(:first-child, :nth-child(2), :nth-child(3)) {
+    
+    width: 50px;
+}
+
+#timer > div:first-child {
+    margin-top: -10px !important;
 }
 
 #timer p {
